@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ApartmentLanding from './components/apartment_manager_landing';
+import ApartmentLanding from "./components/apartment_manager_landing.component";
 
 function App() {
     return (
