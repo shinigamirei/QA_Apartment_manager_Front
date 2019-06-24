@@ -8,36 +8,23 @@ export default class ApartmentList extends React.Component {
         super(props);
 
         this.state = {
-            
             Headers: ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Apartment Rooms'],
             Rows: [],
             databaseresponse: []
-
         };
-
-
     }
 
     componentDidMount() {
         axios.get('http://localhost:4000/apartment/getAll')
             .then(response => {
-                this.setState({ databaseresponse: response.data }, console.log(response.data))
-
+                this.setState({ databaseresponse: response.data })
             })
             .catch(function (error) {
                 console.log(error);
             })
-
     }
 
     render() {
-        let json = this.state.data
-        let databaseJson = []
-
-        let datares = []
-        axios.get('http://localhost:4000/apartment/getAll')
-            .then(Response => { databaseJson = Response.data })
-
 
         let headers = ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Apartment Rooms']
         let rows = []
@@ -62,11 +49,8 @@ export default class ApartmentList extends React.Component {
             rows.push(row)
         })
 
-
         //This what you give the table component
         let tableData = { Headers: headers, Rows: rows }
-
-
 
         return (
             <div>
