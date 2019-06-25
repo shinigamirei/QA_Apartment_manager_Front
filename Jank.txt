@@ -1,0 +1,1 @@
+due to issues importing from outside src folder, generic components will be moved inside, will write a bash script to do this automatically later
