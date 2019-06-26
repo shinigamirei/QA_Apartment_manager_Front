@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import QATable from './Generics/qa-table.component';
 import axios from 'axios';
+import DatePicker from 'react-date-picker';
 
 export default class ByDateList extends React.Component {
 
@@ -10,22 +11,38 @@ export default class ByDateList extends React.Component {
         this.state = {
             Headers: ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Room Name', 'Trainee ID', 'Occupancy Start', 'Occupancy End'],
             Rows: [],
-            databaseresponse: []
+            databaseresponse: [],
+			date: new Date(),
         };
     }
 
+
     componentDidMount() {
-        axios.get('http://localhost:4000/apartment/getFromDate/2019/07/21')
-            .then(response => {
+			let y=this.state.date.getFullYear();
+			let m=this.state.date.getMonth();
+			let d=this.state.date.getDate();
+			this.searchDate(y,m,d)
+		}
+
+	onChange = date => {
+		this.setState({ date })
+		let y=date.getFullYear();
+		let m=date.getMonth();
+		let d=date.getDate();
+		this.searchDate(y,m,d)
+	}
+	searchDate(year,month,day){
+        axios.get('http://localhost:4000/apartment/getFromDate/' + year + '/' + month + '/' + day)
+           .then(response => {
                 this.setState({ databaseresponse: response.data })
-            })
+           })
             .catch(function (error) {
                 console.log(error);
-            })
-    }
+           })
+	}
     render() {
-
-        let headers = ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Room Name', 'Trainee ID', 'Occupancy Start', 'Occupancy End']
+		
+		let headers = ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Room Name', 'Trainee ID', 'Occupancy Start', 'Occupancy End']
         let rows = []
 
         //Creates a row for each apartment Json
@@ -49,12 +66,15 @@ export default class ByDateList extends React.Component {
 
         return (
             <div>
+            <DatePicker
+				onChange={this.onChange}
+				value={this.state.date}
+            />
                 <h2>
-                    Room Occupancies on 21/08/2019
+                    Room Occupancies
                 </h2>
                 <QATable data={tableData} />
-
-            </div>
+			</div>
         );
     };
 };
