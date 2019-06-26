@@ -67,7 +67,7 @@ describe("SearchContainer component", () => {
     const searchContainer = mount(<SearchContainer data={apartmentData} />);
     expect(searchContainer.state().searchResults).toHaveLength(3);
 
-    //Checks search function removes Mary
+    //Checks search function
     const { search } = searchContainer.find(SearchBar).props()
     search('X')
     expect(searchContainer.state().searchResults).toHaveLength(3);
