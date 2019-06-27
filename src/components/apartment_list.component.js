@@ -26,7 +26,7 @@ export default class ApartmentList extends React.Component {
 
     render() {
 
-        let headers = ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Apartment Rooms']
+        let headers = ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Apartment Rooms','Assign Trainee']
         let rows = []
 
         //Creates a row for each apartment Json
@@ -43,7 +43,8 @@ export default class ApartmentList extends React.Component {
                 'Apartment Name': data.apartment_name,
                 'Apartment Address': data.apartment_address,
                 'Apartment Region': data.apartment_region,
-                'Apartment Rooms': roomString
+                'Apartment Rooms': roomString,
+                'Assign Trainee': <button>Assign</button>
             }
             //Adds apartment row to Rows
             rows.push(row)
