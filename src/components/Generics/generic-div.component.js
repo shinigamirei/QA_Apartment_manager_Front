@@ -8,7 +8,7 @@ export default class GenericDiv extends React.Component {
             
         this.state = {
             data: {
-                    Headers: ['Name', 'Age', 'Button'],
+                    Headers: [{'header':'Name', 'width':400}, {'header':'Age', 'width':400}, {'header':'Button', 'width':400}],
                     Rows: [{'Name': 'John', 'Age': '22', 'Button': <button>Click Me!</button>},
                             {'Name': 'Jane', 'Age': '26', 'Button': <button>No, Click Me!</button>}]
                 }

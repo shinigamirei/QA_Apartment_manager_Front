@@ -19,26 +19,23 @@ export default class QATable extends React.Component {
     }
 
     componentDidMount() {
-        let columns =[];
-        this.props.data.Headers.map(header =>{
-            columns.push({Header: header, accessor: header})
-        })
-        this.setState({
-            tableRows: this.props.data.Rows,
-            tableColumns: columns
-        })
+        this.setTableData(this.props.data)
     }
 
     componentWillReceiveProps(nextProps) {
+        this.setTableData(nextProps.data)
+      }
+     
+    setTableData(tableData){
         let columns =[];
-        nextProps.data.Headers.map(header =>{
-            columns.push({Header: header, accessor: header})
+        tableData.Headers.map(column =>{
+            columns.push({Header: column.header, accessor: column.header, width: column.width})
         })
         this.setState({
-            tableRows: nextProps.data.Rows,
+            tableRows: tableData.Rows,
             tableColumns: columns
         })
-      }
+    }
 
 
     render() {
