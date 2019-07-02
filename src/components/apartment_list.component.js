@@ -15,7 +15,7 @@ export default class ApartmentList extends React.Component {
             Headers: ['Apartment Name','Apartment Address','Apartment Region', 'Apartment Rooms','Assign Trainee' ],
             Rows: [],
             databaseresponse: [],
-            showForm: true
+            showForm: false
         };  
         this.handleButtonShow = this.handleButtonShow.bind(this);
 
@@ -35,7 +35,7 @@ export default class ApartmentList extends React.Component {
       
       handleButtonShow(e) {
         this.setState({showForm: true});
-        console.log(e.state.showForm);
+        console.log(this.state.databaseresponse);
       }
 
 
