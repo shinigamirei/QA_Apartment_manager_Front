@@ -26,8 +26,8 @@ export default class ApartmentList extends React.Component {
 
     render() {
 
-        let headers = [{ 'header': 'Apartment Name', 'width': 400 }, { 'header': 'Apartment Address', 'width': 400 }, { 'header': 'Apartment Region', 'width': 400 },
-        { 'header': 'Apartment Rooms', 'width': 400 }, { 'header': 'Assign Trainee', 'width': 400 }]
+        let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, { 'header': 'Apartment Region', 'width': 300 },
+        { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Assign Trainee', 'width': 200 }]
         let rows = []
 
         //Creates a row for each apartment Json
