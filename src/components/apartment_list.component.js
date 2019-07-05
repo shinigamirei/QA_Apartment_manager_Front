@@ -1,6 +1,7 @@
 import React from 'react';
 import QATable from './Generics/qa-table.component';
 import AddOccupancy from '../add_occupancy';
+import AddRoom from './add_room';
 import axios from 'axios';
 
 export default class ApartmentList extends React.Component {
@@ -12,15 +13,17 @@ export default class ApartmentList extends React.Component {
         
 
         this.state = {
-            Headers: ['Apartment Name','Apartment Address','Apartment Region', 'Apartment Rooms','Assign Trainee' ],
+            Headers: ['Apartment Name','Apartment Address','Apartment Region', 'Apartment Rooms','Assign Trainee','Add Room' ],
             Rows: [],
             databaseresponse: [],
-            showForm: false,
+            showForm_AssignTrainee: false,
+			showForm_AddRoom: false,
 			form_id: null,
 			form_apartment: null,
 			form_rooms: [],
         };  
-        this.handleButtonShow = this.handleButtonShow.bind(this);
+        this.handleButtonShow_AssignTrainee = this.handleButtonShow_AssignTrainee.bind(this);
+        this.handleButtonShow_AddRoom = this.handleButtonShow_AddRoom.bind(this);
 
 
     }
@@ -36,25 +39,36 @@ export default class ApartmentList extends React.Component {
     }
 
       
-      handleButtonShow(e) {
+      handleButtonShow_AssignTrainee(e) {
 		let id=e.target.getAttribute('data-arg1');
 		let apartname=e.target.getAttribute('data-arg2');
 		let rooms=e.target.getAttribute('data-arg3');
 		//let id=4
 		//let apartname="hello"
-        this.setState({showForm: true});
+        this.setState({showForm_AssignTrainee: true});
+        this.setState({showForm_AddRoom: false});
         this.setState({form_id: id});
         this.setState({form_apartment: apartname});
         this.setState({form_rooms: rooms});
         console.log(this.state.databaseresponse);
       }
-
+      handleButtonShow_AddRoom(e) {
+		let id=e.target.getAttribute('data-arg1');
+		let apartname=e.target.getAttribute('data-arg2');
+		//let id=4
+		//let apartname="hello"
+        this.setState({showForm_AssignTrainee: false});
+        this.setState({showForm_AddRoom: true});
+        this.setState({form_id: id});
+        this.setState({form_apartment: apartname});
+        console.log(this.state.databaseresponse);
+      }
 
     render() {
         const showForm = this.state.showForm;
         console.log(showForm);
         let headers = [{ 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 200 }, { 'header': 'Apartment Region', 'width': 200 },
-        { 'header': 'Apartment Rooms', 'width': 200 }, { 'header': 'Assign Trainee', 'width': 100 }]
+        { 'header': 'Apartment Rooms', 'width': 200 }, { 'header': 'Assign Trainee', 'width': 100 }, { 'header': 'Add Room', 'width': 100 }]
         let rows = []
 
         //Creates a row for each apartment Json
@@ -74,8 +88,10 @@ export default class ApartmentList extends React.Component {
                 'Apartment Address': data.apartment_address,
                 'Apartment Region': data.apartment_region,
                 'Apartment Rooms': roomString,
-			'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>
-//'Assign Trainee': <button className="actionBtn"  onClick={this.handleButtonShow} >Assign</button>
+			'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow_AssignTrainee} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>,
+			'Add Room': <button className="actionBtn" onClick={this.handleButtonShow_AddRoom} id="AddRoomButton" data-arg1={data._id} data-arg2={data.apartment_name}>Add</button>
+
+			//'Assign Trainee': <button className="actionBtn"  onClick={this.handleButtonShow} >Assign</button>
             }
             //Adds apartment row to Rows
             rows.push(row)
@@ -84,7 +100,7 @@ export default class ApartmentList extends React.Component {
         //This what you give the table component
         let tableData = { Headers: headers, Rows: rows }
                
-        if(showForm === true){
+        if(this.state.showForm_AssignTrainee === true){
                     return( 
                         <div>
                         <h2>
@@ -92,6 +108,18 @@ export default class ApartmentList extends React.Component {
                     </h2>
                     <QATable data={tableData}/>
                     <AddOccupancy _id={this.state.form_id} apartment={this.state.form_apartment} rooms={this.state.form_rooms}/>
+
+                    </div>
+                    );
+                }
+		else if (this.state.showForm_AddRoom === true){
+                    return( 
+                        <div>
+                        <h2>
+                        Apartment listing<br/>
+                    </h2>
+                    <QATable data={tableData}/>
+                    <AddRoom _id={this.state.form_id} apartment={this.state.form_apartment} />
 
                     </div>
                     );
