@@ -15,7 +15,10 @@ export default class ApartmentList extends React.Component {
             Headers: ['Apartment Name','Apartment Address','Apartment Region', 'Apartment Rooms','Assign Trainee' ],
             Rows: [],
             databaseresponse: [],
-            showForm: false
+            showForm: false,
+			form_id: null,
+			form_apartment: null,
+			form_rooms: [],
         };  
         this.handleButtonShow = this.handleButtonShow.bind(this);
 
@@ -34,7 +37,15 @@ export default class ApartmentList extends React.Component {
 
       
       handleButtonShow(e) {
+		let id=e.target.getAttribute('data-arg1');
+		let apartname=e.target.getAttribute('data-arg2');
+		let rooms=e.target.getAttribute('data-arg3');
+		//let id=4
+		//let apartname="hello"
         this.setState({showForm: true});
+        this.setState({form_id: id});
+        this.setState({form_apartment: apartname});
+        this.setState({form_rooms: rooms});
         console.log(this.state.databaseresponse);
       }
 
@@ -48,11 +59,13 @@ export default class ApartmentList extends React.Component {
 
         //Creates a row for each apartment Json
         this.state.databaseresponse.map(data => {
+			let _id = data._id
+			let apartname= data.apartment_name
             let rooms = []
             //Gets all the room numbers in the apartment and adds to room array
             for (var room in data.apartment_rooms) {
                 console.log(data.apartment_rooms[room].room_name_number)
-                rooms.push(data.apartment_rooms[room].room_name_number)
+                rooms.push(`${data.apartment_rooms[room].room_name_number}`)
             }
             //Takes room number array and converts to string
             let roomString = rooms.join()
@@ -61,7 +74,8 @@ export default class ApartmentList extends React.Component {
                 'Apartment Address': data.apartment_address,
                 'Apartment Region': data.apartment_region,
                 'Apartment Rooms': roomString,
-                'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow}>Assign</button>
+			'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>
+//'Assign Trainee': <button className="actionBtn"  onClick={this.handleButtonShow} >Assign</button>
             }
             //Adds apartment row to Rows
             rows.push(row)
@@ -74,10 +88,10 @@ export default class ApartmentList extends React.Component {
                     return( 
                         <div>
                         <h2>
-                        Apartment listing
+                        Apartment listing<br/>
                     </h2>
                     <QATable data={tableData}/>
-                    <AddOccupancy/>
+                    <AddOccupancy _id={this.state.form_id} apartment={this.state.form_apartment} rooms={this.state.form_rooms}/>
 
                     </div>
                     );
@@ -86,12 +100,12 @@ export default class ApartmentList extends React.Component {
         return (
             <div>
                 <h2>
-                    Apartment list
+                    Apartment list<br/>
                 </h2>
                 <QATable data={tableData}/>
              
             </div>
         )
-    }
-}
+		}
+	}
 }
