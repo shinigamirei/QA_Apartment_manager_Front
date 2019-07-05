@@ -8,7 +8,7 @@ export default class ApartmentList extends React.Component {
 
         this.state = {
             data: {
-                Headers: ['Apartment number', 'Room number', 'Button'],
+                Headers: [{ 'header': 'Apartment Number', 'width': 200 }, { 'header': 'Room Number', 'width': 200 }, { 'header': 'Button', 'width': 200 }],
                 Rows: [{ 'Apartment number': '22', 'Room number': '1', 'Button': <button>Click Me!</button> },
                 { 'Apartment number': '26', 'Room number': '1', 'Button': <button>No, Click Me!</button> }]
             }

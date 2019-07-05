@@ -45,6 +45,7 @@ export default class ApartmentList extends React.Component {
 		let rooms=e.target.getAttribute('data-arg3');
 		//let id=4
 		//let apartname="hello"
+        this.setState({showForm_AssignTrainee: false});
         this.setState({showForm_AssignTrainee: true});
         this.setState({showForm_AddRoom: false});
         this.setState({form_id: id});
@@ -58,6 +59,7 @@ export default class ApartmentList extends React.Component {
 		//let id=4
 		//let apartname="hello"
         this.setState({showForm_AssignTrainee: false});
+        this.setState({showForm_AddRoom: false});
         this.setState({showForm_AddRoom: true});
         this.setState({form_id: id});
         this.setState({form_apartment: apartname});
