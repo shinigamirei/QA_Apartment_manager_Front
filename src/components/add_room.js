@@ -32,13 +32,19 @@ export default class AddRoom extends Component {
     }).then(res => {
       console.log(res);
       console.log(res.data);
+      if (res.status === 200) {
+        window.location.reload(true);
+      }
+      else {
+         alert('Failed to add room ');
+      };
     })
 
   }
   render() {
     return (
         <div>
-      <h2>Assign a Trainee</h2>
+      <h2>Add a room</h2>
       <form className="forcesize" onSubmit={this.onSubmit}>
         
 		<br></br>

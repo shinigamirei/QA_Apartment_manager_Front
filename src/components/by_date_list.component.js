@@ -70,7 +70,7 @@ export default class ByDateList extends React.Component {
     render() {
 		
         let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 250 }, { 'header': 'Apartment Region', 'width': 250 },
-            { 'header': 'Room Name', 'width': 250 }, { 'header': 'Trainee ID', 'width': 250 }, { 'header': 'Occupancy Start', 'width': 250 }, { 'header': 'Occupancy End', 'width': 250 }]
+            { 'header': 'Room Name', 'width': 250 }, { 'header': 'Trainee ID', 'width': 250 }, { 'header': 'Occupancy Start', 'width': 250 }, { 'header': 'Occupancy End', 'width': 250 }, { 'header': 'Change End Date', 'width': 200 }]
 
         let rows = []
 
