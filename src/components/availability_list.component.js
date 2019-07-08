@@ -28,6 +28,7 @@ export default class AvailabilityList extends React.Component {
 
         let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 250 }, { 'header': 'Apartment Region', 'width': 250 },
             { 'header': 'Room Name', 'width': 200 }, { 'header': 'Current Occupancy', 'width': 250 }, { 'header': 'Next Occupancy', 'width': 250 }, { 'header': 'Availability', 'width': 200 }]
+
         let rows = []
 
         //Creates a row for each apartment Json
