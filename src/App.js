@@ -15,21 +15,6 @@ function App() {
             <ApartmentLanding className="ApartmentLandingComponent">
             </ApartmentLanding>
             </header>
-            <body>
-                <SearchContainer data = {[{
-                                'apartment_name':'X1',
-                                'apartment_address':'',
-                                'apartment_region':'Manchester'
-                                },{
-                                'apartment_name':'X2',
-                                'apartment_address':'',
-                                'apartment_region':'Brighton'
-                                },{
-                                'apartment_name':'X3',
-                                'apartment_address':'',
-                                'apartment_region':'Leeds'
-                                }]} />
-            </body>
         </div>
     );
 }

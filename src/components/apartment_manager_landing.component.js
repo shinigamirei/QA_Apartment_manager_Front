@@ -13,12 +13,10 @@ export default class ApartmentLanding extends React.Component
 
         return (
             <div>
-                <ApartmentList className="ffs">
+                <ApartmentList>
                 </ApartmentList>
                 <RoomList>
                 </RoomList>
-		<AvailabilityList>
-		</AvailabilityList>
 		<ByDateList>
 		</ByDateList>
             </div>

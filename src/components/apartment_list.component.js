@@ -26,8 +26,9 @@ export default class ApartmentList extends React.Component {
 
     render() {
 
-        let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, { 'header': 'Apartment Region', 'width': 300 },
-        { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Assign Trainee', 'width': 200 }]
+        let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, {
+            'header': 'Region', 'width': 150},
+            { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Current Occupancy', 'width': 200 }, { 'header': 'Next Occupancy', 'width': 200 }, { 'header': 'Availability', 'width': 200 }, { 'header': 'Assign Trainee', 'width': 200 }]
         let rows = []
 
         //Creates a row for each apartment Json
@@ -43,8 +44,11 @@ export default class ApartmentList extends React.Component {
             let row = {
                 'Apartment Name': data.apartment_name,
                 'Apartment Address': data.apartment_address,
-                'Apartment Region': data.apartment_region,
+                'Region': data.apartment_region,
                 'Apartment Rooms': roomString,
+                'Current Occupancy': data.room_current_occupancy_end,
+                'Next Occupancy': data.room_next_occupancy_start,
+                'Availability': data.available_days,
                 'Assign Trainee': <button>Assign</button>
             }
             //Adds apartment row to Rows
