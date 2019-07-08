@@ -69,8 +69,8 @@ export default class ApartmentList extends React.Component {
     render() {
         const showForm = this.state.showForm;
         console.log(showForm);
-        let headers = [{ 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 200 }, { 'header': 'Apartment Region', 'width': 200 },
-        { 'header': 'Apartment Rooms', 'width': 200 }, { 'header': 'Assign Trainee', 'width': 100 }, { 'header': 'Add Room', 'width': 100 }]
+        let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, { 'header': 'Apartment Region', 'width': 300 },
+        { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Assign Trainee', 'width': 200 }, { 'header': 'Add Room', 'width': 100 }]
         let rows = []
 
         //Creates a row for each apartment Json

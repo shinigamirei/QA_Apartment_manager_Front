@@ -13,12 +13,12 @@ export default class ByDateList extends React.Component {
             Headers: ['Apartment Name', 'Apartment Address', 'Apartment Region', 'Room Name', 'Trainee ID', 'Occupancy Start', 'Occupancy End', 'Change End Date'],
             Rows: [],
             databaseresponse: [],
-			date: new Date(),
+			      date: new Date(),
             showForm_ChangeDate: false,
-			form_id: null,
-			form_apartment: null,
-			form_room_name: null,
-			form_occ_id: null,        
+			      form_id: null,
+			      form_apartment: null,
+			      form_room_name: null,
+			      form_occ_id: null,        
         };
 		
 		this.handleButtonShow_ChangeEnd = this.handleButtonShow_ChangeEnd.bind(this);
@@ -43,7 +43,7 @@ export default class ByDateList extends React.Component {
 	searchDate(year,month,day){
         axios.get('http://localhost:2351/apartment/getFromDate/' + year + '/' + month + '/' + day)
            .then(response => {
-			    this.setState({showForm_ChangeDate : false})
+			          this.setState({showForm_ChangeDate : false})
                 this.setState({ databaseresponse: response.data })
            })
             .catch(function (error) {
@@ -52,10 +52,10 @@ export default class ByDateList extends React.Component {
 	}
 	
 	   handleButtonShow_ChangeEnd(e) {
-		let id=e.target.getAttribute('data-arg1');
-		let apartname=e.target.getAttribute('data-arg2');
-		let room_name=e.target.getAttribute('data-arg3');
-		let occ_id=e.target.getAttribute('data-arg4');
+		    let id=e.target.getAttribute('data-arg1');
+		    let apartname=e.target.getAttribute('data-arg2');
+		    let room_name=e.target.getAttribute('data-arg3');
+		    let occ_id=e.target.getAttribute('data-arg4');
 		//let id=4
 		//let apartname="hello"
         this.setState({showForm_ChangeDate: true});
@@ -69,7 +69,9 @@ export default class ByDateList extends React.Component {
 	
     render() {
 		
-		let headers = [{ 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 200 }, { 'header': 'Apartment Region', 'width': 200 }, { 'header': 'Room Name', 'width': 100 }, { 'header': 'Trainee ID', 'width': 100 }, { 'header': 'Occupancy Start', 'width': 200 }, { 'header': 'Occupancy End', 'width': 200 } , { 'header': 'Change End Date', 'width': 100 }]
+        let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 250 }, { 'header': 'Apartment Region', 'width': 250 },
+            { 'header': 'Room Name', 'width': 250 }, { 'header': 'Trainee ID', 'width': 250 }, { 'header': 'Occupancy Start', 'width': 250 }, { 'header': 'Occupancy End', 'width': 250 }]
+
         let rows = []
 
         //Creates a row for each apartment Json
@@ -84,7 +86,6 @@ export default class ByDateList extends React.Component {
 				'Occupancy Start': data.occupancy_start,
 				'Occupancy End': data.occupancy_end,
 				'Change End Date': <button className="actionBtn" onClick={this.handleButtonShow_ChangeEnd} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={data.room_name} data-arg4={data.occ_id}>Change</button>
-
             }
             //Adds apartment row to Rows
             rows.push(row)
