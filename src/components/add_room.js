@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-const API ='http://localhost:4000/apartment/addRoom/';
+const API ='http://localhost:2302/apartment/addRoom/';
 
 export default class AddRoom extends Component {
 
