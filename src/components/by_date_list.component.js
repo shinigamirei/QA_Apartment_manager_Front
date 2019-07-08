@@ -41,7 +41,7 @@ export default class ByDateList extends React.Component {
 		this.searchDate(y,m,d)
 	}
 	searchDate(year,month,day){
-        axios.get('http://localhost:2351/apartment/getFromDate/' + year + '/' + month + '/' + day)
+        axios.get('http://'+process.env.REACT_APP_GET_OCCUPANCY+'/apartment/getFromDate/' + year + '/' + month + '/' + day)
            .then(response => {
 			          this.setState({showForm_ChangeDate : false})
                 this.setState({ databaseresponse: response.data })

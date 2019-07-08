@@ -33,7 +33,7 @@ export default class ApartmentAdmin extends React.Component {
     };
 
     componentDidMount() {
-        axios.get('http://localhost:2303/apartment/getAll')
+        axios.get('http://'+process.env.REACT_APP_GET_ALL+'/apartment/getAll')
             .then(response => {
                 this.setState({ apartments: response.data });
                 this.state.apartments.map(data => {
@@ -88,7 +88,7 @@ export default class ApartmentAdmin extends React.Component {
                 apartment_region: this.state.apartment_region,
             };
 
-            axios.post('http://localhost:2302/apartment/create', apartment).then((response) => {
+            axios.post('http://'+process.env.REACT_APP_ROOM+'/apartment/create', apartment).then((response) => {
                 if (response.status === 200) {
                     for (var i = 1; i <= parseInt(this.state.room_number); i++) {
                         axios.post('http://localhost:4000/apartment/addRoom', { '_id': response.data, 'room_name_number': i });

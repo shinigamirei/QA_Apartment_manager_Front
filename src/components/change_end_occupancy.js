@@ -28,7 +28,7 @@ export default class ChangeEndOcc extends Component {
       
     event.preventDefault();
    // let roomNum == 0;
-    axios.post(API, {
+    axios.post('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/changeEndOccupancy/', {
         _id: this.state._id,
         room_name_number: this.state.room_name_number,
 		occ_id: this.state.occ_id,

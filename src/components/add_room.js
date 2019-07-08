@@ -25,7 +25,7 @@ export default class AddRoom extends Component {
       
     event.preventDefault();
    // let roomNum == 0;
-    axios.post(API, {
+    axios.post('http://'+process.env.REACT_APP_ROOM+'/apartment/addRoom/', {
         _id: this.state._id,
         room_name_number: this.state.room_name_number,
 

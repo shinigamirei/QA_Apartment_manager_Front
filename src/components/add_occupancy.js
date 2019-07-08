@@ -29,7 +29,7 @@ export default class AddOccupancy extends Component {
       
     event.preventDefault();
    // let roomNum == 0;
-    axios.post(API, {
+    axios.post('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/addOccupancy/', {
         _id: this.state._id,
         room_name_number: this.state.room_name_number,
         trainee_id: this.state.trainee_id,

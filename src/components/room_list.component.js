@@ -14,7 +14,7 @@ export default class RoomList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/apartment/getAll')
+        axios.get('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/getAll')
             .then(response => {
                 this.setState({ databaseresponse: response.data })
             })

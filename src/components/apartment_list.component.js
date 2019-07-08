@@ -29,7 +29,7 @@ export default class ApartmentList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:2303/apartment/getAll')
+        axios.get('http://'+process.env.REACT_APP_GET_ALL+'/apartment/getAll')
             .then(response => {
                 this.setState({ databaseresponse: response.data })
             })

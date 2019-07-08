@@ -15,7 +15,7 @@ export default class AvailabilityList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:2351/apartment/cleaningAvailability')
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/cleaningAvailability')
             .then(response => {
                 this.setState({ databaseresponse: response.data })
             })
