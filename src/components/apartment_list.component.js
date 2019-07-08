@@ -1,6 +1,6 @@
 import React from 'react';
 import QATable from './Generics/qa-table.component';
-import AddOccupancy from '../add_occupancy';
+import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
 
@@ -72,8 +72,8 @@ export default class ApartmentList extends React.Component {
         const showForm = this.state.showForm;
         console.log(showForm);
         let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, {'header': 'Region', 'width': 150},
-            { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Current Occupancy', 'width': 200 }, { 'header': 'Next Occupancy', 'width': 200 }, 
-            { 'header': 'Availability', 'width': 200 }, { 'header': 'Assign Trainee', 'width': 200 }, { 'header': 'Add Room', 'width': 100 }]
+            { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Assign Trainee', 'width': 200 }, { 'header': 'Add Room', 'width': 100 }]
+
 
         let rows = []
 
@@ -94,9 +94,7 @@ export default class ApartmentList extends React.Component {
                 'Apartment Address': data.apartment_address,
                 'Region': data.apartment_region,
                 'Apartment Rooms': roomString,
-                'Current Occupancy': data.room_current_occupancy_end,
-                'Next Occupancy': data.room_next_occupancy_start,
-                'Availability': data.available_days,
+
                 'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow_AssignTrainee} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>,
 			          'Add Room': <button className="actionBtn" onClick={this.handleButtonShow_AddRoom} id="AddRoomButton" data-arg1={data._id} data-arg2={data.apartment_name}>Add</button>
 

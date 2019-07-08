@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-const API ='http://localhost:4000/apartment/changeEndOccupancy/';
+const API ='http://localhost:4000/apartment/addOccupancy/';
 
-export default class ChangeEndOcc extends Component {
+export default class AddOccupancy extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
         _id: this.props._id,
         apartment_name: this.props.apartment,
-        room_name_number: this.props.room_name,
-		occ_id: this.props.occ_id,
-		
+		rooms: this.props.rooms.split(","),
+        room_name_number: "null",
+        trainee_id: "def",
+        occupancy_start: new Date(),
         occupancy_end: new Date(),
     }
 	
@@ -31,7 +32,10 @@ export default class ChangeEndOcc extends Component {
     axios.post(API, {
         _id: this.state._id,
         room_name_number: this.state.room_name_number,
-		occ_id: this.state.occ_id,
+        trainee_id: this.state.trainee_id,
+        syear: new Date(this.state.occupancy_start).getFullYear(),
+        smonth: new Date(this.state.occupancy_start).getMonth(),
+        sday: new Date(this.state.occupancy_start).getDate(),
         eyear: new Date(this.state.occupancy_end).getFullYear(),
         emonth: new Date(this.state.occupancy_end).getMonth(),
         eday: new Date(this.state.occupancy_end).getDate(),
@@ -43,7 +47,7 @@ export default class ChangeEndOcc extends Component {
         window.location.reload(true);
       }
       else {
-         alert('Failed to change end occupancy ');
+         alert('Failed to add occupancy. This may be due to an issue with dates. Review the dates.');
       };
     })
 
@@ -51,21 +55,36 @@ export default class ChangeEndOcc extends Component {
   render() {
     return (
         <div>
-      <h2>Change End Date</h2>
+      <h2>Assign a Trainee</h2>
       <form className="forcesize" onSubmit={this.onSubmit}>
         
 		<br></br>
         Apartment Name : {this.state.apartment_name}<br/>
 		<br></br>
-        Room Name : {this.state.room_name_number}
+        Room Name 
 		<br></br>
-		Occupacy ID :  {this.state.occ_id}
+        <label htmlFor="Room Name" ></label>   
+		<select id="room_name_number" onChange={this.handleChange}>
+			{this.state.rooms.map(room =>{
+				return <option key={room}>{room}</option>
+			})}
+		</select>
+		<br></br>
+        Trainee ID
+        <br></br>
+        <label htmlFor="Trainee ID" ></label>
+        <input id="trainee_id" type="text" placeholder="Enter Trainee ID"onChange={this.handleChange} />
+        <br></br>
+        Start Date
+        <br></br>
+        <label htmlFor="Start Date"></label>
+        <input id="occupancy_start" type="date" onChange={this.handleChange} />
         <br></br>
         End Date
         <br></br>
         <label htmlFor="End Date"></label>
         <input id="occupancy_end" type="date" onChange={this.handleChange} />
-      
+        <br></br>    
         <input className="button" type="submit" value="Submit" position = "center"/>
       </form>
         </div>
