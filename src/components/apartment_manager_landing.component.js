@@ -1,9 +1,9 @@
 import React from 'react';
-import QATable from "./Generics/qa-table.component"
 import ApartmentList from "./apartment_list.component"
 import RoomList from "./room_list.component"
-import AvailabilityList from "./availability_list.component"
-import ByDateList from "./by_date_list.component"
+ import AvailabilityList from "./availability_list.component"
+ import ByDateList from "./by_date_list.component"
+ import QATable from "./Generics/qa-table.component"
 
 export default class ApartmentLanding extends React.Component
 {
@@ -13,14 +13,10 @@ export default class ApartmentLanding extends React.Component
 
         return (
             <div>
-                <ApartmentList className="ffs">
-                </ApartmentList>
-                <RoomList>
-                </RoomList>
-		<AvailabilityList>
-		</AvailabilityList>
-		<ByDateList>
-		</ByDateList>
+                <ApartmentList/>
+                <RoomList/>
+				<AvailabilityList/>
+				<ByDateList/>
             </div>
         );
     }
