@@ -34,6 +34,9 @@ export default class ByDateList extends React.Component {
 		}
 
 	onChange = date => {
+		if (date === null){
+			date=new Date()
+		}
 		this.setState({ date })
 		let y=date.getFullYear();
 		let m=date.getMonth();
