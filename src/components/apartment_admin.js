@@ -55,11 +55,10 @@ export default class ApartmentAdmin extends React.Component {
                     //Adds apartment row to Rows
                     this.state.rows.push(row);
                 })
-                    .catch(function (error) {
+            })
+			.catch(function (error) {
                         console.log(error);
                     });
-
-            });
     };
 
     updateName(event) {
