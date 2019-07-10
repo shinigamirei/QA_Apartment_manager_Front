@@ -34,7 +34,7 @@ export default class ApartmentList extends React.Component {
 		let y=this.state.currentDate.getFullYear();
 		let m=this.state.currentDate.getMonth();
 		let d=this.state.currentDate.getDate();
-        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/'+y+'/'+m+'/'+d)
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate/'+y+'/'+m+'/'+d)
             .then(response => {
                 this.setState({ databaseresponse: response.data })
             })
