@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import QATable from './Generics/qa-table.component';
+import QATableSorted from './Generics/qa-table-sortable.component';
 
 export default class ApartmentAdmin extends React.Component {
 
@@ -13,11 +14,11 @@ export default class ApartmentAdmin extends React.Component {
             apartment_name: '',
             apartment_address: '',
             apartment_region: '',
-            room_number: '1',
+            apartment_rooms: '',
             apartments: '',
-            headers: [{ 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 200 }, { 'header': 'Apartment Region', 'width': 200 },
-            { 'header': 'Apartment Rooms', 'width': 200 }, { 'header': 'Action', 'width': 200 }],
-            rows: [],
+            headers: [ {'header': 'Region', 'width': 150}, { 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, 
+            { 'header': 'Number of rooms', 'width': 300 }, { 'header': 'Action', 'width': 200 }],
+            rows: []
         };
 
 
@@ -37,20 +38,14 @@ export default class ApartmentAdmin extends React.Component {
             .then(response => {
                 this.setState({ apartments: response.data });
                 this.state.apartments.map(data => {
-                    let rooms = []
-                    //Gets all the room numbers in the apartment and adds to room array
-                    for (var room in data.apartment_rooms) {
-                        rooms.push(data.apartment_rooms[room].room_name_number)
-                    }
-                    //Takes room number array and converts to string
-                    let roomString = rooms.join();
+                    
                     let row = {
-                        'Apartment Name': data.apartment_name,
-                        'Apartment Address': data.apartment_address,
-                        'Apartment Region': data.apartment_region,
-                        'Apartment Rooms': roomString,
+						'Region': data.apartment_region,
+						'Apartment Name': data.apartment_name,
+						'Apartment Address': data.apartment_address,
+						'Number of rooms': data.apartment_rooms,
                         'Action': <div><button onClick={() => this.delete(data._id)}>Delete</button> 
-                        <button onClick={() => this.setState({ choice: 3, _id: data._id, apartment_name: data.apartment_name, apartment_address: data.apartment_address, apartment_region: data.apartment_region })}>Update</button></div>
+                        <button onClick={() => this.setState({ choice: 3, _id: data._id, apartment_name: data.apartment_name, apartment_address: data.apartment_address, apartment_region: data.apartment_region,apartment_rooms: data.apartment_rooms })}>Update</button></div>
                     }
                     //Adds apartment row to Rows
                     this.state.rows.push(row);
@@ -74,7 +69,7 @@ export default class ApartmentAdmin extends React.Component {
     };
 
     updateRoomNumber(event) {
-        this.setState({ room_number: event.target.value });
+        this.setState({ apartment_rooms: event.target.value });
     };
 
     send(event) {
@@ -85,13 +80,11 @@ export default class ApartmentAdmin extends React.Component {
                 apartment_name: this.state.apartment_name,
                 apartment_address: this.state.apartment_address,
                 apartment_region: this.state.apartment_region,
+				apartment_rooms: this.state.apartment_rooms
             };
 
             axios.post('http://'+process.env.REACT_APP_ROOM+'/apartment/create', apartment).then((response) => {
                 if (response.status === 200) {
-                    for (var i = 1; i <= parseInt(this.state.room_number); i++) {
-                        axios.post('http://localhost:4000/apartment/addRoom', { '_id': response.data, 'room_name_number': i });
-                    };
 					window.location.reload(true);
                 }
                 else {
@@ -124,6 +117,7 @@ export default class ApartmentAdmin extends React.Component {
                 apartment_name: this.state.apartment_name,
                 apartment_address: this.state.apartment_address,
                 apartment_region: this.state.apartment_region,
+				apartment_rooms: this.state.apartment_rooms
             };
 
             axios.put('http://localhost:2302/apartment/update', apartment).then((response) => {
@@ -157,6 +151,9 @@ export default class ApartmentAdmin extends React.Component {
 								<option key='Manchester' value='Manchester'>Manchester</option>
 							</select>
 							<br />
+                            Number of rooms <br />
+                            <input type='text' value={this.state.apartment_rooms} onChange={this.updateRoomNumber} /> <br />
+							<br />
                             
                             <input type='submit' onSubmit={this.send} />
                         </div>
@@ -170,7 +167,7 @@ export default class ApartmentAdmin extends React.Component {
                 <div>
                     <h2>Apartment list</h2>
                     <button onClick={() => this.setState({ choice: 0 })}>Back</button>
-                    <QATable data={{ 'Headers': this.state.headers, 'Rows': this.state.rows }} />
+                    <QATableSorted data={{ 'Headers': this.state.headers, 'Rows': this.state.rows }} sortColumn='Region'/>
                 </div>
             );
         }
@@ -188,7 +185,15 @@ export default class ApartmentAdmin extends React.Component {
                             Apartment address <br />
                             <input type='text' value={this.state.apartment_address} onChange={this.updateAddress} /> <br />
                             Apartment region <br />
-                            <input type='text' value={this.state.apartment_region} onChange={this.updateRegion} /> <br />
+							 <select value={this.state.apartment_region} onChange={this.updateRegion}>
+								<option key='Brighton' value='Brighton'>Brighton</option>
+								<option key='Leeds' value='Leeds'>Leeds</option>
+								<option key='Manchester' value='Manchester'>Manchester</option>
+							 </select>
+							 <br />
+                            Number of rooms <br />
+                            <input type='text' value={this.state.apartment_rooms} onChange={this.updateRoomNumber} /> <br />
+							<br />
                             <input type='submit' onSubmit={this.update} />
                         </div>
                     </form>

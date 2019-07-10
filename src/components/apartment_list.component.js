@@ -1,5 +1,6 @@
 import React from 'react';
 import QATable from './Generics/qa-table.component';
+import QATableSorted from './Generics/qa-table-sortable.component';
 import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
@@ -21,6 +22,7 @@ export default class ApartmentList extends React.Component {
 			form_id: null,
 			form_apartment: null,
 			form_rooms: [],
+			currentDate: new Date()
         };  
         this.handleButtonShow_AssignTrainee = this.handleButtonShow_AssignTrainee.bind(this);
         this.handleButtonShow_AddRoom = this.handleButtonShow_AddRoom.bind(this);
@@ -29,7 +31,10 @@ export default class ApartmentList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://'+process.env.REACT_APP_GET_ALL+'/apartment/getAll')
+		let y=this.state.currentDate.getFullYear();
+		let m=this.state.currentDate.getMonth();
+		let d=this.state.currentDate.getDate();
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/'+y+'/'+m+'/'+d)
             .then(response => {
                 this.setState({ databaseresponse: response.data })
             })
@@ -71,8 +76,8 @@ export default class ApartmentList extends React.Component {
     render() {
         const showForm = this.state.showForm;
         console.log(showForm);
-        let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, {'header': 'Region', 'width': 150},
-            { 'header': 'Apartment Rooms', 'width': 300 }]
+        let headers = [ {'header': 'Region', 'width': 150}, { 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, 
+            { 'header': 'Availability', 'width': 300 }]
 
 
         let rows = []
@@ -81,19 +86,19 @@ export default class ApartmentList extends React.Component {
         this.state.databaseresponse.map(data => {
 			let _id = data._id
 			let apartname= data.apartment_name
-            let rooms = []
+          //  let rooms = []
             //Gets all the room numbers in the apartment and adds to room array
-            for (var room in data.apartment_rooms) {
-                console.log(data.apartment_rooms[room].room_name_number)
-                rooms.push(`${data.apartment_rooms[room].room_name_number}`)
-            }
+         //   for (var room in data.apartment_rooms) {
+         //       console.log(data.apartment_rooms[room].room_name_number)
+         //       rooms.push(`${data.apartment_rooms[room].room_name_number}`)
+         //   }
             //Takes room number array and converts to string
-            let roomString = rooms.join()
+          //  let roomString = rooms.join()
             let row = {
+                'Region': data.apartment_region,
                 'Apartment Name': data.apartment_name,
                 'Apartment Address': data.apartment_address,
-                'Region': data.apartment_region,
-                'Apartment Rooms': roomString,
+                'Availability': data.room_count,
 
                 //'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow_AssignTrainee} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>,
 			    //'Add Room': <button className="actionBtn" onClick={this.handleButtonShow_AddRoom} id="AddRoomButton" data-arg1={data._id} data-arg2={data.apartment_name}>Add</button>
@@ -136,7 +141,7 @@ export default class ApartmentList extends React.Component {
                 <h2>
                     Apartment list<br/>
                 </h2>
-                <QATable data={tableData}/>
+                <QATableSorted data={tableData} sortColumn='Region'/>
              
             </div>
         )
