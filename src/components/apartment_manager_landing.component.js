@@ -15,8 +15,6 @@ export default class ApartmentLanding extends React.Component
             <div>
 		<ApartmentAdmin/>
 		<ApartmentList/>
-		<AvailabilityList/>
-		<ByDateList/>
             </div>
         );
     }
