@@ -1,24 +1,29 @@
 import React from 'react';
-
-import './App.css';
-import ApartmentLanding from './components/apartment_manager_landing.component';
-import SearchContainer from './components/search-bar/searchContainer.component';
-
+import Container from './components/container-component/container.component';
+import { BrowserRouter as Router, Route} from "react-router-dom";
+import { myConfig } from './components/container-component/component-map';
+import { authService } from './components/container-component/modules/authService'
 
 function App() {
+
+  if(!authService.currentUserValue){
     return (
-        
-        <div className="App">
-            <h1> this is the placeholder nav bar, </h1>
-            
-            <header className="App-header">
-            <ApartmentLanding className="ApartmentLandingComponent">
-            </ApartmentLanding>
-            </header>
-        </div>
+      <Router>
+          <div className="App">
+            <Container role='' links={myConfig}/>
+          </div>
+      </Router>
     );
+  }
+  else{
+    return (
+      <Router>
+          <div className="App">
+            <Container role={authService.currentUserValue.token.role} links={myConfig}/>
+          </div>
+      </Router>
+    );
+  }
 }
-
-
 
 export default App;
