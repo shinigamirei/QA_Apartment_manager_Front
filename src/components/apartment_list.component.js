@@ -72,7 +72,7 @@ export default class ApartmentList extends React.Component {
         const showForm = this.state.showForm;
         console.log(showForm);
         let headers = [{ 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, {'header': 'Region', 'width': 150},
-            { 'header': 'Apartment Rooms', 'width': 300 }, { 'header': 'Assign Trainee', 'width': 200 }, { 'header': 'Add Room', 'width': 100 }]
+            { 'header': 'Apartment Rooms', 'width': 300 }]
 
 
         let rows = []
@@ -95,8 +95,8 @@ export default class ApartmentList extends React.Component {
                 'Region': data.apartment_region,
                 'Apartment Rooms': roomString,
 
-                'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow_AssignTrainee} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>,
-			          'Add Room': <button className="actionBtn" onClick={this.handleButtonShow_AddRoom} id="AddRoomButton" data-arg1={data._id} data-arg2={data.apartment_name}>Add</button>
+                //'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow_AssignTrainee} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>,
+			    //'Add Room': <button className="actionBtn" onClick={this.handleButtonShow_AddRoom} id="AddRoomButton" data-arg1={data._id} data-arg2={data.apartment_name}>Add</button>
 
             }
             //Adds apartment row to Rows
