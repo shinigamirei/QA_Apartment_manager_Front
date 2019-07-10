@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import QATable from './Generics/qa-table.component';
+import QATableSorted from './Generics/qa-table-sortable.component';
 
 export default class ApartmentAdmin extends React.Component {
 
@@ -166,7 +167,7 @@ export default class ApartmentAdmin extends React.Component {
                 <div>
                     <h2>Apartment list</h2>
                     <button onClick={() => this.setState({ choice: 0 })}>Back</button>
-                    <QATable data={{ 'Headers': this.state.headers, 'Rows': this.state.rows }} />
+                    <QATableSorted data={{ 'Headers': this.state.headers, 'Rows': this.state.rows }} sortColumn='Region'/>
                 </div>
             );
         }
