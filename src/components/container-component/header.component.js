@@ -36,14 +36,14 @@ export default class Navigation extends React.Component {
     if (!this.state.currentUser) {
       return null
     } else {
-      axios.get('http://' + process.env.REACT_APP_AWS_IP + ':4000/trainee/' + this.state.currentUser.token._id)
+      axios.get('http://' + process.env.REACT_APP_LOGIN_IP + ':4000/trainee/' + this.state.currentUser.token._id)
         .then(response => {
           if (response.data == null) {
-            axios.get('http://' + process.env.REACT_APP_AWS_IP + ':4000/admin/staff/' + this.state.currentUser.token._id)
+            axios.get('http://' + process.env.REACT_APP_LOGIN_IP + ':4000/admin/staff/' + this.state.currentUser.token._id)
               .then(response => {
                 if(response.data == null){
                   authService.logout();
-                  document.location.href = 'http://' + process.env.REACT_APP_DNS + ':3000/login';
+                  document.location.href = 'http://' + process.env.REACT_APP_AWS_IP + ':3000/login';
                 }
                 else{
                   this.setState({

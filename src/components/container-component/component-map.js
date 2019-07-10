@@ -38,18 +38,18 @@ export const myConfig =
                    ],
     },
     "admin": {
-        "home": <AdminHome/>,
+        "home": <ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>,
         "buttons": [
-                        {'name': 'Home', 'content': <AdminHome/>}
+                        {'name': 'Home', 'content': <ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>}
                    ],
         "dropdowns":[
                         {   'name': 'Demo Dropdown',
                             'content':[
-                                        {'name': 'Table', 'content':<ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>},
-                                        {'name': 'Search Bar', 'content':<Admin1/>},
-                                        {'name': 'Buttons', 'content': <Admin2/>},
-                                        {'name': 'Apartment Display', 'content': <Admin3/>},
-                                        {'name': 'Calendar', 'content': <Admin4/>}
+                                        {'name': 'Admin placeholder 1', 'content':<AdminHome/>},
+                                        {'name': 'Admin placeholder 2', 'content':<Admin1/>},
+                                        {'name': 'Admin placeholder 3', 'content': <Admin2/>},
+                                        {'name': 'Admin placeholder 4', 'content': <Admin3/>},
+                                        {'name': 'Admin placeholder 5', 'content': <Admin4/>}
                                       ]
                         }
                     ],
