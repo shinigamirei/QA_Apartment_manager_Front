@@ -4,6 +4,7 @@ import QATableSorted from './Generics/qa-table-sortable.component';
 import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
+import DatePicker from 'react-date-picker';
 
 export default class ApartmentList extends React.Component {
 
@@ -22,7 +23,7 @@ export default class ApartmentList extends React.Component {
 			form_id: null,
 			form_apartment: null,
 			form_rooms: [],
-			currentDate: new Date()
+			date: new Date()
         };  
         this.handleButtonShow_AssignTrainee = this.handleButtonShow_AssignTrainee.bind(this);
         this.handleButtonShow_AddRoom = this.handleButtonShow_AddRoom.bind(this);
@@ -31,17 +32,38 @@ export default class ApartmentList extends React.Component {
     }
 
     componentDidMount() {
-		let y=this.state.currentDate.getFullYear();
-		let m=this.state.currentDate.getMonth();
-		let d=this.state.currentDate.getDate();
-        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate/'+y+'/'+m+'/'+d)
-            .then(response => {
+		let y=this.state.date.getFullYear();
+		let m=this.state.date.getMonth();
+		let d=this.state.date.getDate();
+        //axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/'+y+'/'+m+'/'+d)
+        //    .then(response => {
+        //        this.setState({ databaseresponse: response.data })
+        //    })
+        //    .catch(function (error) {
+        //        console.log(error);
+        //    })
+		this.searchDate(y,m,d);
+    }
+	onChange = date => {
+		if (date === null){
+			date=new Date()
+		}
+		this.setState({ date })
+		let y=date.getFullYear();
+		let m=date.getMonth();
+		let d=date.getDate();
+		this.searchDate(y,m,d)
+	}
+	searchDate(year,month,day){
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/' + year + '/' + month + '/' + day)
+           .then(response => {
+			          this.setState({showForm_ChangeDate : false})
                 this.setState({ databaseresponse: response.data })
-            })
+           })
             .catch(function (error) {
                 console.log(error);
-            })
-    }
+           })
+	}
 
       
       handleButtonShow_AssignTrainee(e) {
@@ -111,40 +133,48 @@ export default class ApartmentList extends React.Component {
         //This what you give the table component
         let tableData = { Headers: headers, Rows: rows }
                
-        if(this.state.showForm_AssignTrainee === true){
-                    return( 
-                        <div>
-                        <h2>
-                        Apartment listing<br/>
-                    </h2>
-                    <QATable data={tableData}/>
-                    <AddOccupancy _id={this.state.form_id} apartment={this.state.form_apartment} rooms={this.state.form_rooms}/>
-
-                    </div>
-                    );
-                }
-		else if (this.state.showForm_AddRoom === true){
-                    return( 
-                        <div>
-                        <h2>
-                        Apartment listing<br/>
-                    </h2>
-                    <QATable data={tableData}/>
-                    <AddRoom _id={this.state.form_id} apartment={this.state.form_apartment} />
-
-                    </div>
-                    );
-                }
-        else {
+//        if(this.state.showForm_AssignTrainee === true){
+//                    return( 
+//                        <div>
+//                        <h2>
+//                        Apartment listing<br/>	
+//				
+//				<br/>
+//                    </h2>
+//                    <QATable data={tableData}/>
+//                    <AddOccupancy _id={this.state.form_id} apartment={this.state.form_apartment} rooms={this.state.form_rooms}/>
+//
+//                    </div>
+//                    );
+//                }
+//		else if (this.state.showForm_AddRoom === true){
+//                    return( 
+//                        <div>
+//                        <h2>
+//                        Apartment listing<br/>
+//                    </h2>
+//                    <QATable data={tableData}/>
+//                    <AddRoom _id={this.state.form_id} apartment={this.state.form_apartment} />
+//
+//                    </div>
+//                    );
+//                }
+//        else {
         return (
             <div>
-                <h2>
-                    Apartment list<br/>
-                </h2>
+			<table width="100%" ><tr><td>
+                  <h2>  
+				  Apartment list
+				  </h2></td>
+					<td align="right">
+					Search: <DatePicker
+					onChange={this.onChange}
+					value={this.state.date}
+					/></td></tr></table>
+					<br/>
                 <QATableSorted data={tableData} sortColumn='Region'/>
              
             </div>
         )
-		}
 	}
 }
