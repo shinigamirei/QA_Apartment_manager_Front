@@ -13,7 +13,7 @@ export default class ApartmentLanding extends React.Component
 
         return (
             <div>
-		<ApartmentAdmin/>
+		{/* <ApartmentAdmin/> */}
 		<ApartmentList/>
             </div>
         );
