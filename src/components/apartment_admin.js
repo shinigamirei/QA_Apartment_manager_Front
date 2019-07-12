@@ -16,7 +16,7 @@ export default class ApartmentAdmin extends React.Component {
             apartment_region: '',
             apartment_rooms: '',
             apartments: '',
-            headers: [ {'header': 'Region', 'width': 150}, { 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, 
+            headers: [{ 'header': 'Region', 'width': 150 }, { 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 },
             { 'header': 'Number of rooms', 'width': 300 }, { 'header': 'Action', 'width': 200 }],
             rows: []
         };
@@ -30,30 +30,30 @@ export default class ApartmentAdmin extends React.Component {
         this.delete = this.delete.bind(this);
         this.update = this.update.bind(this);
 
-        
+
     };
 
     componentDidMount() {
-        axios.get('http://'+process.env.REACT_APP_GET_ALL+'/apartment/getAll')
+        axios.get('http://' + process.env.REACT_APP_GET_ALL + '/apartment/getAll')
             .then(response => {
                 this.setState({ apartments: response.data });
                 this.state.apartments.map(data => {
-                    
+
                     let row = {
-						'Region': data.apartment_region,
-						'Apartment Name': data.apartment_name,
-						'Apartment Address': data.apartment_address,
-						'Number of rooms': data.apartment_rooms,
-                        'Action': <div><button onClick={() => this.delete(data._id)}>Delete</button> 
-                        <button onClick={() => this.setState({ choice: 3, _id: data._id, apartment_name: data.apartment_name, apartment_address: data.apartment_address, apartment_region: data.apartment_region,apartment_rooms: data.apartment_rooms })}>Update</button></div>
+                        'Region': data.apartment_region,
+                        'Apartment Name': data.apartment_name,
+                        'Apartment Address': data.apartment_address,
+                        'Number of rooms': data.apartment_rooms,
+                        'Action': <div><button onClick={() => this.delete(data._id)}>Delete</button>
+                            <button onClick={() => this.setState({ choice: 3, _id: data._id, apartment_name: data.apartment_name, apartment_address: data.apartment_address, apartment_region: data.apartment_region, apartment_rooms: data.apartment_rooms })}>Update</button></div>
                     }
                     //Adds apartment row to Rows
                     this.state.rows.push(row);
                 })
             })
-			.catch(function (error) {
-                        console.log(error);
-                    });
+            .catch(function (error) {
+                console.log(error);
+            });
     };
 
     updateName(event) {
@@ -80,12 +80,12 @@ export default class ApartmentAdmin extends React.Component {
                 apartment_name: this.state.apartment_name,
                 apartment_address: this.state.apartment_address,
                 apartment_region: this.state.apartment_region,
-				apartment_rooms: this.state.apartment_rooms
+                apartment_rooms: this.state.apartment_rooms
             };
 
-            axios.post('http://'+process.env.REACT_APP_ROOM+'/apartment/create', apartment).then((response) => {
+            axios.post('http://' + process.env.REACT_APP_ROOM + '/apartment/create', apartment).then((response) => {
                 if (response.status === 200) {
-					window.location.reload(true);
+                    window.location.reload(true);
                 }
                 else {
                     alert('Failed to get a proper respose from the database');
@@ -117,7 +117,7 @@ export default class ApartmentAdmin extends React.Component {
                 apartment_name: this.state.apartment_name,
                 apartment_address: this.state.apartment_address,
                 apartment_region: this.state.apartment_region,
-				apartment_rooms: this.state.apartment_rooms
+                apartment_rooms: this.state.apartment_rooms
             };
 
             axios.put('http://localhost:2302/apartment/update', apartment).then((response) => {
@@ -144,17 +144,17 @@ export default class ApartmentAdmin extends React.Component {
                             Apartment address <br />
                             <input type='text' value={this.state.apartment_address} onChange={this.updateAddress} /> <br />
                             Apartment region <br />
-                            <select  onChange={this.updateRegion}>
-							    <option disabled selected value> -- select a region -- </option>
-								<option key='Brighton' value='Brighton'>Brighton</option>
-								<option key='Leeds' value='Leeds'>Leeds</option>
-								<option key='Manchester' value='Manchester'>Manchester</option>
-							</select>
-							<br />
+                            <select onChange={this.updateRegion}>
+                                <option disabled selected value> -- select a region -- </option>
+                                <option key='Brighton' value='Brighton'>Brighton</option>
+                                <option key='Leeds' value='Leeds'>Leeds</option>
+                                <option key='Manchester' value='Manchester'>Manchester</option>
+                            </select>
+                            <br />
                             Number of rooms <br />
                             <input type='text' value={this.state.apartment_rooms} onChange={this.updateRoomNumber} /> <br />
-							<br />
-                            
+                            <br />
+
                             <input type='submit' onSubmit={this.send} />
                         </div>
                     </form>
@@ -167,7 +167,7 @@ export default class ApartmentAdmin extends React.Component {
                 <div>
                     <h2>Apartment list</h2>
                     <button onClick={() => this.setState({ choice: 0 })}>Back</button>
-                    <QATableSorted data={{ 'Headers': this.state.headers, 'Rows': this.state.rows }} sortColumn='Region'/>
+                    <QATableSorted data={{ 'Headers': this.state.headers, 'Rows': this.state.rows }} sortColumn='Region' />
                 </div>
             );
         }
@@ -185,15 +185,15 @@ export default class ApartmentAdmin extends React.Component {
                             Apartment address <br />
                             <input type='text' value={this.state.apartment_address} onChange={this.updateAddress} /> <br />
                             Apartment region <br />
-							 <select value={this.state.apartment_region} onChange={this.updateRegion}>
-								<option key='Brighton' value='Brighton'>Brighton</option>
-								<option key='Leeds' value='Leeds'>Leeds</option>
-								<option key='Manchester' value='Manchester'>Manchester</option>
-							 </select>
-							 <br />
+                            <select value={this.state.apartment_region} onChange={this.updateRegion}>
+                                <option key='Brighton' value='Brighton'>Brighton</option>
+                                <option key='Leeds' value='Leeds'>Leeds</option>
+                                <option key='Manchester' value='Manchester'>Manchester</option>
+                            </select>
+                            <br />
                             Number of rooms <br />
                             <input type='text' value={this.state.apartment_rooms} onChange={this.updateRoomNumber} /> <br />
-							<br />
+                            <br />
                             <input type='submit' onSubmit={this.update} />
                         </div>
                     </form>
