@@ -1,6 +1,8 @@
 import React from 'react';
 import QATable from './Generics/qa-table.component';
 import QATableSorted from './Generics/qa-table-sortable.component';
+import TextButton from './Generics/text-button.component';
+import TextButtonArg from './Generics/text-button-arg.component';
 import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
@@ -20,16 +22,18 @@ export default class ApartmentList extends React.Component {
             databaseresponse: [],
             showForm_AssignTrainee: false,
 			showForm_AddRoom: false,
+			showTable: false,
 			form_id: null,
 			form_apartment: null,
 			form_rooms: [],
 			date: new Date(),
-			region: 'All'
+			region: 'All',
+			endDate: new Date()
         };  
         this.handleButtonShow_AssignTrainee = this.handleButtonShow_AssignTrainee.bind(this);
         this.handleButtonShow_AddRoom = this.handleButtonShow_AddRoom.bind(this);
         this.updateRegion = this.updateRegion.bind(this);
-
+        this.handleButtonRegionChange = this.handleButtonRegionChange.bind(this);
 
     }
 
@@ -60,6 +64,21 @@ export default class ApartmentList extends React.Component {
 			let r=this.state.region;
 			this.searchDateRegion(y,m,d,r)
 		}
+	}
+	onChangeED = endDate => {
+		if (endDate === null){
+			endDate=new Date()
+		}
+		this.setState({ endDate })
+//		let y=date.getFullYear();
+//		let m=date.getMonth();
+//		let d=date.getDate();
+//		if (this.state.region == 'All'){
+//			this.searchDate(y,m,d)
+//		}else{
+//			let r=this.state.region;
+//			this.searchDateRegion(y,m,d,r)
+//		}
 	}
 	searchDate(year,month,day){
         axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/' + year + '/' + month + '/' + day)
@@ -95,7 +114,23 @@ export default class ApartmentList extends React.Component {
 			this.searchDateRegion(y,m,d,r)
 		}
     };
-      
+    handleButtonRegionChange(e) {
+		let r=e.target.getAttribute('data-arg1');
+		//let id=4
+		//let apartname="hello"
+        this.setState({region: r});
+		let date=this.state.date;
+		let y=date.getFullYear();
+		let m=date.getMonth();
+		let d=date.getDate();
+		if (r == 'All'){
+			this.searchDate(y,m,d)
+		}else{
+			
+			this.searchDateRegion(y,m,d,r)
+		}
+		this.setState({showTable: true});
+      }    
       handleButtonShow_AssignTrainee(e) {
 		let id=e.target.getAttribute('data-arg1');
 		let apartname=e.target.getAttribute('data-arg2');
@@ -129,7 +164,7 @@ export default class ApartmentList extends React.Component {
         const showForm = this.state.showForm;
         console.log(showForm);
         let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
-            { 'header': 'Availability', 'width': 100 }]
+            { 'header': 'Availability', 'width': 150 }]
 
 
         let rows = []
@@ -190,30 +225,65 @@ export default class ApartmentList extends React.Component {
 //                    );
 //                }
 //        else {
-        return (
-            <div>
-			<table width="100%" ><tr><td>
-                  <h2>  
-				  Apartment list : {this.state.region}
-				  </h2></td>
-					<td align="center">
-					Search: <DatePicker
-					onChange={this.onChange}
-					value={this.state.date}
-					/></td>
-					<td align="right">
-					 Region: <select value={this.state.region} onChange={this.updateRegion}>
-                                <option key='All' value='All'>Show all</option>
-                                <option key='Brighton' value='Brighton'>Brighton</option>
-                                <option key='Leeds' value='Leeds'>Leeds</option>
-								<option key='London' value='London'>London</option>
-                                <option key='Manchester' value='Manchester'>Manchester</option>
-                            </select>
-					</td>
-					</tr></table>
-					<br/>
-                <QATableSorted data={tableData} sortColumn='Region'/>
-            </div>
-        )
+
+		if(this.state.showTable===false){
+			return (
+				<div>
+				<div align="center">
+				<table><tr><td align="center">
+				<TextButtonArg id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton" text="Brighton" /><
+				/td><td align="center">
+				<TextButtonArg id="RegionLeeds" onClick={this.handleButtonRegionChange}dataarg1="Leeds"  text="Leeds" />
+				</td></tr><tr><td align="center">
+				<TextButtonArg id="RegionLondon" onClick={this.handleButtonRegionChange}dataarg1="London"  text="London" />
+				</td><td align="center">
+				<TextButtonArg id="RegionManchester" onClick={this.handleButtonRegionChange} dataarg1="Manchester"  text="Manchester" />
+				</td></tr></table>
+				</div>
+				</div>
+			)
+		}else{	
+			return (
+			<div>
+				<table width="100%" >
+				<tr><td>
+					<h2>  
+					Apartment list: {this.state.region}
+					</h2></td>
+						<td align="center">
+						From: <DatePicker
+						onChange={this.onChange}
+						selected={this.state.date}
+						selectsStart
+						startDate={this.state.date}
+						endDate={this.state.endDate}
+						value={this.state.date}
+						/> To: <DatePicker
+						onChange={this.onChangeED}
+						selected={this.state.endDate}
+						selectsEnd
+						startDate={this.state.date}
+						endDate={this.state.endDate}
+						minDate={this.state.date}
+						value={this.state.endDate}
+						/></td>
+						{<td align="right">
+						Region: <select value={this.state.region} onChange={this.updateRegion}>
+									<option key='All' value='All'>Show all</option>
+									<option key='Brighton' value='Brighton'>Brighton</option>
+									<option key='Leeds' value='Leeds'>Leeds</option>
+									<option key='London' value='London'>London</option>
+									<option key='Manchester' value='Manchester'>Manchester</option>
+								</select>
+						</td>}
+						</tr></table>
+						<br/>
+					<QATableSorted data={tableData} sortColumn='Region'/>
+					
+					<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>
+	
+				</div>
+			)
+		}
 	}
 }
