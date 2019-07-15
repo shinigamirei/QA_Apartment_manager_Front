@@ -23,10 +23,12 @@ export default class ApartmentList extends React.Component {
 			form_id: null,
 			form_apartment: null,
 			form_rooms: [],
-			date: new Date()
+			date: new Date(),
+			region: 'All'
         };  
         this.handleButtonShow_AssignTrainee = this.handleButtonShow_AssignTrainee.bind(this);
         this.handleButtonShow_AddRoom = this.handleButtonShow_AddRoom.bind(this);
+        this.updateRegion = this.updateRegion.bind(this);
 
 
     }
@@ -52,7 +54,12 @@ export default class ApartmentList extends React.Component {
 		let y=date.getFullYear();
 		let m=date.getMonth();
 		let d=date.getDate();
-		this.searchDate(y,m,d)
+		if (this.state.region == 'All'){
+			this.searchDate(y,m,d)
+		}else{
+			let r=this.state.region;
+			this.searchDateRegion(y,m,d,r)
+		}
 	}
 	searchDate(year,month,day){
         axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/' + year + '/' + month + '/' + day)
@@ -64,7 +71,30 @@ export default class ApartmentList extends React.Component {
                 console.log(error);
            })
 	}
-
+	searchDateRegion(year,month,day,region){
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Region/' + year + '/' + month + '/' + day + '/' + region)
+           .then(response => {
+			          this.setState({showForm_ChangeDate : false})
+                this.setState({ databaseresponse: response.data })
+           })
+            .catch(function (error) {
+                console.log(error);
+           })
+	}
+    updateRegion(event) {
+        this.setState({ region: event.target.value });
+		let r=event.target.value;
+		let date=this.state.date;
+		let y=date.getFullYear();
+		let m=date.getMonth();
+		let d=date.getDate();
+		if (r == 'All'){
+			this.searchDate(y,m,d)
+		}else{
+			
+			this.searchDateRegion(y,m,d,r)
+		}
+    };
       
       handleButtonShow_AssignTrainee(e) {
 		let id=e.target.getAttribute('data-arg1');
@@ -98,8 +128,8 @@ export default class ApartmentList extends React.Component {
     render() {
         const showForm = this.state.showForm;
         console.log(showForm);
-        let headers = [ {'header': 'Region', 'width': 150}, { 'header': 'Apartment Name', 'width': 250 }, { 'header': 'Apartment Address', 'width': 300 }, 
-            { 'header': 'Availability', 'width': 300 }]
+        let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
+            { 'header': 'Availability', 'width': 100 }]
 
 
         let rows = []
@@ -164,16 +194,25 @@ export default class ApartmentList extends React.Component {
             <div>
 			<table width="100%" ><tr><td>
                   <h2>  
-				  Apartment list
+				  Apartment list : {this.state.region}
 				  </h2></td>
-					<td align="right">
+					<td align="center">
 					Search: <DatePicker
 					onChange={this.onChange}
 					value={this.state.date}
-					/></td></tr></table>
+					/></td>
+					<td align="right">
+					 Region: <select value={this.state.region} onChange={this.updateRegion}>
+                                <option key='All' value='All'>Show all</option>
+                                <option key='Brighton' value='Brighton'>Brighton</option>
+                                <option key='Leeds' value='Leeds'>Leeds</option>
+								<option key='London' value='London'>London</option>
+                                <option key='Manchester' value='Manchester'>Manchester</option>
+                            </select>
+					</td>
+					</tr></table>
 					<br/>
                 <QATableSorted data={tableData} sortColumn='Region'/>
-             
             </div>
         )
 	}
