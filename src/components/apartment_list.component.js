@@ -7,6 +7,7 @@ import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
+import SearchBar from './search-bar/search.component';
 
 export default class ApartmentList extends React.Component {
 
@@ -19,7 +20,8 @@ export default class ApartmentList extends React.Component {
         this.state = {
             Headers: ['Apartment Name','Apartment Address','Apartment Region', 'Apartment Rooms','Assign Trainee','Add Room' ],
             Rows: [],
-            databaseresponse: [],
+			databaseresponse: [],
+			noSearch: [],
             showForm_AssignTrainee: false,
 			showForm_AddRoom: false,
 			showTable: false,
@@ -35,7 +37,7 @@ export default class ApartmentList extends React.Component {
         this.updateRegion = this.updateRegion.bind(this);
         this.handleButtonRegionChange = this.handleButtonRegionChange.bind(this);
 
-    }
+	}
 
     componentDidMount() {
 		let y=this.state.date.getFullYear();
@@ -80,11 +82,34 @@ export default class ApartmentList extends React.Component {
 //			this.searchDateRegion(y,m,d,r)
 //		}
 	}
+
+	search = event => {
+		let noSearch = this.state.noSearch;
+        if(event.length > 0){
+			let searchResults = [];
+			let demoString = "Hello World"
+            this.state.noSearch.map(result => {
+				let searchValues = Object.values(result)
+					console.log(searchValues.join('').replace(/ /g,'').toLowerCase())
+					console.log(event.toLowerCase());
+                    if(searchValues.join('').replace(/ /g,'').toLowerCase().match(event.replace(/ /g,'').toLowerCase())){
+						searchResults.push(result)
+						console.log(searchResults);             
+                     }                
+            })
+            this.setState({ databaseresponse : searchResults })
+        }
+        else{
+            this.setState({databaseresponse : noSearch})
+        }
+    };
+
 	searchDate(year,month,day){
         axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Count/' + year + '/' + month + '/' + day)
            .then(response => {
 			          this.setState({showForm_ChangeDate : false})
-                this.setState({ databaseresponse: response.data })
+				this.setState({ databaseresponse: response.data })
+				this.setState({ noSearch: response.data})
            })
             .catch(function (error) {
                 console.log(error);
@@ -94,7 +119,8 @@ export default class ApartmentList extends React.Component {
         axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate_Region/' + year + '/' + month + '/' + day + '/' + region)
            .then(response => {
 			          this.setState({showForm_ChangeDate : false})
-                this.setState({ databaseresponse: response.data })
+				this.setState({ databaseresponse: response.data })
+				this.setState({ noSearch: response.data})
            })
             .catch(function (error) {
                 console.log(error);
@@ -169,70 +195,26 @@ export default class ApartmentList extends React.Component {
 
         let rows = []
 
-        //Creates a row for each apartment Json
         this.state.databaseresponse.map(data => {
 			let _id = data._id
 			let apartname= data.apartment_name
-          //  let rooms = []
-            //Gets all the room numbers in the apartment and adds to room array
-         //   for (var room in data.apartment_rooms) {
-         //       console.log(data.apartment_rooms[room].room_name_number)
-         //       rooms.push(`${data.apartment_rooms[room].room_name_number}`)
-         //   }
-            //Takes room number array and converts to string
-          //  let roomString = rooms.join()
             let row = {
                 'Region': data.apartment_region,
                 'Apartment Name': data.apartment_name,
                 'Apartment Address': data.apartment_address,
                 'Availability': data.room_count,
-
-                //'Assign Trainee': <button className="actionBtn" onClick={this.handleButtonShow_AssignTrainee} id="ThisButton" data-arg1={data._id} data-arg2={data.apartment_name} data-arg3={rooms}>Assign</button>,
-			    //'Add Room': <button className="actionBtn" onClick={this.handleButtonShow_AddRoom} id="AddRoomButton" data-arg1={data._id} data-arg2={data.apartment_name}>Add</button>
-
             }
-            //Adds apartment row to Rows
             rows.push(row)
         })
 
-        //This what you give the table component
         let tableData = { Headers: headers, Rows: rows }
-               
-//        if(this.state.showForm_AssignTrainee === true){
-//                    return( 
-//                        <div>
-//                        <h2>
-//                        Apartment listing<br/>	
-//				
-//				<br/>
-//                    </h2>
-//                    <QATable data={tableData}/>
-//                    <AddOccupancy _id={this.state.form_id} apartment={this.state.form_apartment} rooms={this.state.form_rooms}/>
-//
-//                    </div>
-//                    );
-//                }
-//		else if (this.state.showForm_AddRoom === true){
-//                    return( 
-//                        <div>
-//                        <h2>
-//                        Apartment listing<br/>
-//                    </h2>
-//                    <QATable data={tableData}/>
-//                    <AddRoom _id={this.state.form_id} apartment={this.state.form_apartment} />
-//
-//                    </div>
-//                    );
-//                }
-//        else {
 
 		if(this.state.showTable===false){
 			return (
 				<div>
 				<div align="center">
 				<table><tr><td align="center">
-				<TextButtonArg id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton" text="Brighton" /><
-				/td><td align="center">
+				<TextButtonArg id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton" text="Brighton" /></td><td align="center">
 				<TextButtonArg id="RegionLeeds" onClick={this.handleButtonRegionChange}dataarg1="Leeds"  text="Leeds" />
 				</td></tr><tr><td align="center">
 				<TextButtonArg id="RegionLondon" onClick={this.handleButtonRegionChange}dataarg1="London"  text="London" />
@@ -277,7 +259,10 @@ export default class ApartmentList extends React.Component {
 								</select>
 						</td>}
 						</tr></table>
+						<div>
+						Search: <SearchBar search={this.search}/>
 						<br/>
+						</div>
 					<QATableSorted data={tableData} sortColumn='Region'/>
 					
 					<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>

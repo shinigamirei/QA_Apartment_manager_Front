@@ -5,7 +5,7 @@ class AdminHome extends React.Component {
        return (
           <div>
              <h1>Admin Homepage</h1>
-             <button onClick={()=>{this.props.content(<h1>Content Changed</h1>)}}>Change content</button>
+             <button onClick={()=>{this.props.content(<h1>{this.props.id}</h1>)}}>Change content</button>
           </div>
        )
     }

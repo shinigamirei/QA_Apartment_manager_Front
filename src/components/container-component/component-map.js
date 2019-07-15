@@ -45,7 +45,7 @@ export const myConfig =
         "dropdowns":[
                         {   'name': 'Demo Dropdown',
                             'content':[
-                                        {'name': 'Admin placeholder 1', 'content':<AdminHome/>},
+                                        {'name': 'Admin placeholder 1', 'content':<AdminHome id="helloworld"/>},
                                         {'name': 'Admin placeholder 2', 'content':<Admin1/>},
                                         {'name': 'Admin placeholder 3', 'content': <Admin2/>},
                                         {'name': 'Admin placeholder 4', 'content': <Admin3/>},
