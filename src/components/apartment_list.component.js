@@ -2,12 +2,12 @@ import React from 'react';
 import QATable from './Generics/qa-table.component';
 import QATableSorted from './Generics/qa-table-sortable.component';
 import TextButton from './Generics/text-button.component';
-import TextButtonArg from './Generics/text-button-arg.component';
 import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import SearchBar from './search-bar/search.component';
+import Magnifying_glass from './magnifying-glass.png';
 
 export default class ApartmentList extends React.Component {
 
@@ -210,12 +210,12 @@ export default class ApartmentList extends React.Component {
 				<div>
 				<div align="center">
 				<table><tr><td align="center">
-				<TextButtonArg id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton" text="Brighton" /></td><td align="center">
-				<TextButtonArg id="RegionLeeds" onClick={this.handleButtonRegionChange}dataarg1="Leeds"  text="Leeds" />
+				<TextButton id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton"> Brighton</TextButton></td><td align="center">
+				<TextButton id="RegionLeeds" onClick={this.handleButtonRegionChange}dataarg1="Leeds">Leeds</TextButton>
 				</td></tr><tr><td align="center">
-				<TextButtonArg id="RegionLondon" onClick={this.handleButtonRegionChange}dataarg1="London"  text="London" />
+				<TextButton id="RegionLondon" onClick={this.handleButtonRegionChange}dataarg1="London">London</TextButton>
 				</td><td align="center">
-				<TextButtonArg id="RegionManchester" onClick={this.handleButtonRegionChange} dataarg1="Manchester"  text="Manchester" />
+				<TextButton id="RegionManchester" onClick={this.handleButtonRegionChange} dataarg1="Manchester">Manchester</TextButton>
 				</td></tr></table>
 				</div>
 				</div>
@@ -256,7 +256,8 @@ export default class ApartmentList extends React.Component {
 						</td>}
 						</tr></table>
 						<div>
-						Search: <SearchBar search={this.search}/>
+						Search<img src={Magnifying_glass} alt="QA logo" width="15px" height="15px"/>:
+						<SearchBar search={this.search}/>
 						<br/>
 						</div>
 					<QATableSorted 
@@ -273,7 +274,9 @@ export default class ApartmentList extends React.Component {
 						}
 					/>
 					
-					<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>
+					<div align="center">
+					<TextButton id="GoBack" onClick={() => this.setState({ showTable: false })}>Go Back</TextButton>
+					</div>
 	
 				</div>
 			)
