@@ -90,11 +90,8 @@ export default class ApartmentList extends React.Component {
 			let demoString = "Hello World"
             this.state.noSearch.map(result => {
 				let searchValues = Object.values(result)
-					console.log(searchValues.join('').replace(/ /g,'').toLowerCase())
-					console.log(event.toLowerCase());
                     if(searchValues.join('').replace(/ /g,'').toLowerCase().match(event.replace(/ /g,'').toLowerCase())){
-						searchResults.push(result)
-						console.log(searchResults);             
+						searchResults.push(result)          
                      }                
             })
             this.setState({ databaseresponse : searchResults })
@@ -188,7 +185,6 @@ export default class ApartmentList extends React.Component {
        
     render() {
         const showForm = this.state.showForm;
-        console.log(showForm);
         let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
             { 'header': 'Availability', 'width': 150 }]
 
@@ -263,7 +259,19 @@ export default class ApartmentList extends React.Component {
 						Search: <SearchBar search={this.search}/>
 						<br/>
 						</div>
-					<QATableSorted data={tableData} sortColumn='Region'/>
+					<QATableSorted 
+						data={tableData} 
+						sortColumn='Region'
+						getTrProps={(state, rowInfo) => {
+							return {
+							  onClick: (e) => {
+								  console.log(rowInfo)
+								  this.props.content(<div><h1>Placeholder details page</h1><h3>{JSON.stringify(rowInfo.original)}</h3></div>)
+							  }
+							}
+						  }
+						}
+					/>
 					
 					<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>
 	
