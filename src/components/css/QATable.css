@@ -1,3 +1,10 @@
 .ReactTable.-striped .rt-tr.-odd{
-    background-color: aliceblue;
+    background-color: rgb(0,64,80,10%);
+}
+.ReactTable.-highlight .rt-tbody :not(.-padRow).rt-tr:hover{
+        background: rgb(0, 64, 80,30%);
+}
+
+.ReactTable .rt-thead .rt-th.-sort-asc{
+    box-shadow: inset 0 3px 0 0 rgba(0, 64, 80);
 }

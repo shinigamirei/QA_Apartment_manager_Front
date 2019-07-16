@@ -2,12 +2,12 @@ import React from 'react';
 import QATable from './Generics/qa-table.component';
 import QATableSorted from './Generics/qa-table-sortable.component';
 import TextButton from './Generics/text-button.component';
-import TextButtonArg from './Generics/text-button-arg.component';
 import AddOccupancy from './add_occupancy';
 import AddRoom from './add_room';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import SearchBar from './search-bar/search.component';
+import magnifying_glass from './magnifying-glass.png';
 
 export default class ApartmentList extends React.Component {
 
@@ -103,11 +103,8 @@ export default class ApartmentList extends React.Component {
 			let demoString = "Hello World"
             this.state.noSearch.map(result => {
 				let searchValues = Object.values(result)
-					console.log(searchValues.join('').replace(/ /g,'').toLowerCase())
-					console.log(event.toLowerCase());
                     if(searchValues.join('').replace(/ /g,'').toLowerCase().match(event.replace(/ /g,'').toLowerCase())){
-						searchResults.push(result)
-						console.log(searchResults);             
+						searchResults.push(result)          
                      }                
             })
             this.setState({ databaseresponse : searchResults })
@@ -203,7 +200,6 @@ export default class ApartmentList extends React.Component {
        
     render() {
         const showForm = this.state.showForm;
-        console.log(showForm);
         let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Number', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
             { 'header': 'Availability', 'width': 150 }]
 
@@ -222,19 +218,23 @@ export default class ApartmentList extends React.Component {
             rows.push(row)
         })
 
-        let tableData = { Headers: headers, Rows: rows }
+		let tableData = { Headers: headers, Rows: rows }
+		
+		const styles= {
+            display: "inline-flex"
+        }
 
 		/*if(this.state.showTable===false){
 			return (
 				<div>
 				<div align="center">
 				<table><tr><td align="center">
-				<TextButtonArg id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton" text="Brighton" /></td><td align="center">
-				<TextButtonArg id="RegionLeeds" onClick={this.handleButtonRegionChange}dataarg1="Leeds"  text="Leeds" />
+				<TextButton id="RegionBrighton" onClick={this.handleButtonRegionChange} dataarg1="Brighton"> Brighton</TextButton></td><td align="center">
+				<TextButton id="RegionLeeds" onClick={this.handleButtonRegionChange}dataarg1="Leeds">Leeds</TextButton>
 				</td></tr><tr><td align="center">
-				<TextButtonArg id="RegionLondon" onClick={this.handleButtonRegionChange}dataarg1="London"  text="London" />
+				<TextButton id="RegionLondon" onClick={this.handleButtonRegionChange}dataarg1="London">London</TextButton>
 				</td><td align="center">
-				<TextButtonArg id="RegionManchester" onClick={this.handleButtonRegionChange} dataarg1="Manchester"  text="Manchester" />
+				<TextButton id="RegionManchester" onClick={this.handleButtonRegionChange} dataarg1="Manchester">Manchester</TextButton>
 				</td></tr></table>
 				</div>
 				</div>
@@ -274,12 +274,29 @@ export default class ApartmentList extends React.Component {
 								</select>
 						</td>}
 						</tr></table>
-						<div>
-						Search: <SearchBar search={this.search}/>
+						<div style={styles}>
+						<img src={magnifying_glass} alt="QA logo" width="25px" height="25px"/> &nbsp;<SearchBar search={this.search}/>
+						<br/>
 						<br/>
 						</div>
-					<QATableSorted data={tableData} sortColumn='Region'/>
-		{/*<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>}*/}
+					<QATableSorted 
+						data={tableData} 
+						sortColumn='Region'
+						getTrProps={(state, rowInfo) => {
+							return {
+							  onClick: (e) => {
+								  console.log(rowInfo)
+								  this.props.content(<div><h1>Placeholder details page</h1><h3>{JSON.stringify(rowInfo.original)}</h3></div>)
+							  }
+							}
+						  }
+						}
+					/>
+					
+					{/*<div align="center">
+					<TextButton id="GoBack" onClick={() => this.setState({ showTable: false })}>Go Back</TextButton>
+					</div>*/}
+	
 				</div>
 			)
 		/*}*/

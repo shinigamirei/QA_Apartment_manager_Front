@@ -8,13 +8,17 @@ import ApartmentAdmin from "./apartment_admin";
 export default class ApartmentLanding extends React.Component
 {
 
+    changeContent = event => {
+        this.props.content(event)
+    };
+
     render()
     {
 
         return (
             <div>
-		{/* <ApartmentAdmin/> */}
-		<ApartmentList/>
+                {/* <ApartmentAdmin/> */}
+                <ApartmentList content = {this.changeContent}/>
             </div>
         );
     }
