@@ -52,35 +52,48 @@ export default class ApartmentList extends React.Component {
         //    })
 		this.searchDate(y,m,d);
     }
+	
+	DateChecker(){
+		let date=this.state.date;
+		let y=date.getFullYear();
+		let m=date.getMonth();
+		let d=date.getDate();
+		let endDate=this.state.endDate;
+		let ey=endDate.getFullYear();
+		let em=endDate.getMonth();
+		let ed=endDate.getDate();
+		let r=this.state.region;
+
+		if (y == ey && m == em && d == ed){
+			if (r == 'All'){
+				this.searchDate(y,m,d)
+			}else{
+				this.searchDateRegion(y,m,d,r)
+			}
+		}else{
+			if (r == 'All'){
+				this.searchDate2(y,m,d,ey,em,ed)
+			}else{
+				this.searchDate2Region(y,m,d,ey,em,ed,r)
+			}
+		}
+	}
 	onChange = date => {
 		if (date === null){
 			date=new Date()
 		}
-		this.setState({ date })
-		let y=date.getFullYear();
-		let m=date.getMonth();
-		let d=date.getDate();
-		if (this.state.region == 'All'){
-			this.searchDate(y,m,d)
+		if (date > this.state.endDate){
+			this.setState({ date, endDate:date },function(){this.DateChecker()})
 		}else{
-			let r=this.state.region;
-			this.searchDateRegion(y,m,d,r)
+			this.setState({ date },function(){this.DateChecker()})
 		}
 	}
 	onChangeED = endDate => {
 		if (endDate === null){
 			endDate=new Date()
 		}
-		this.setState({ endDate })
-//		let y=date.getFullYear();
-//		let m=date.getMonth();
-//		let d=date.getDate();
-//		if (this.state.region == 'All'){
-//			this.searchDate(y,m,d)
-//		}else{
-//			let r=this.state.region;
-//			this.searchDateRegion(y,m,d,r)
-//		}
+		this.setState({ endDate },function(){this.DateChecker()});
+
 	}
 
 	search = event => {
@@ -126,35 +139,37 @@ export default class ApartmentList extends React.Component {
                 console.log(error);
            })
 	}
+	searchDate2Region(year,month,day,eyear,emonth,eday,region){
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate2_Region/' + year + '/' + month + '/' + day + '/' + eyear + '/' + emonth + '/' + eday + '/' + region)
+           .then(response => {
+			          this.setState({showForm_ChangeDate : false})
+				this.setState({ databaseresponse: response.data })
+				this.setState({ noSearch: response.data})
+           })
+            .catch(function (error) {
+                console.log(error);
+           })
+	}
+	searchDate2(year,month,day,eyear,emonth,eday){
+        axios.get('http://'+process.env.REACT_APP_GET_ROOM+'/apartment/getFromDate2_Count/' + year + '/' + month + '/' + day + '/' +eyear + '/' + emonth + '/' + eday + '/')
+           .then(response => {
+			          this.setState({showForm_ChangeDate : false})
+				this.setState({ databaseresponse: response.data })
+				this.setState({ noSearch: response.data})
+           })
+            .catch(function (error) {
+                console.log(error);
+           })
+	}
     updateRegion(event) {
-        this.setState({ region: event.target.value });
-		let r=event.target.value;
-		let date=this.state.date;
-		let y=date.getFullYear();
-		let m=date.getMonth();
-		let d=date.getDate();
-		if (r == 'All'){
-			this.searchDate(y,m,d)
-		}else{
-			
-			this.searchDateRegion(y,m,d,r)
-		}
+        this.setState({ region: event.target.value },function(){this.DateChecker()})
+
     };
     handleButtonRegionChange(e) {
 		let r=e.target.getAttribute('data-arg1');
 		//let id=4
 		//let apartname="hello"
-        this.setState({region: r});
-		let date=this.state.date;
-		let y=date.getFullYear();
-		let m=date.getMonth();
-		let d=date.getDate();
-		if (r == 'All'){
-			this.searchDate(y,m,d)
-		}else{
-			
-			this.searchDateRegion(y,m,d,r)
-		}
+        this.setState({region: r},function(){this.DateChecker()})
 		this.setState({showTable: true});
       }    
       handleButtonShow_AssignTrainee(e) {
@@ -189,7 +204,7 @@ export default class ApartmentList extends React.Component {
     render() {
         const showForm = this.state.showForm;
         console.log(showForm);
-        let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Name', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
+        let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Number', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
             { 'header': 'Availability', 'width': 150 }]
 
 
@@ -200,7 +215,7 @@ export default class ApartmentList extends React.Component {
 			let apartname= data.apartment_name
             let row = {
                 'Region': data.apartment_region,
-                'Apartment Name': data.apartment_name,
+                'Apartment Number': data.apartment_name,
                 'Apartment Address': data.apartment_address,
                 'Availability': data.room_count,
             }
@@ -209,7 +224,7 @@ export default class ApartmentList extends React.Component {
 
         let tableData = { Headers: headers, Rows: rows }
 
-		if(this.state.showTable===false){
+		/*if(this.state.showTable===false){
 			return (
 				<div>
 				<div align="center">
@@ -224,13 +239,13 @@ export default class ApartmentList extends React.Component {
 				</div>
 				</div>
 			)
-		}else{	
+		}else{	*/
 			return (
 			<div>
 				<table width="100%" >
 				<tr><td>
 					<h2>  
-					Apartment list: {this.state.region}
+					Apartment list: {this.state.region} 
 					</h2></td>
 						<td align="center">
 						From: <DatePicker
@@ -264,11 +279,9 @@ export default class ApartmentList extends React.Component {
 						<br/>
 						</div>
 					<QATableSorted data={tableData} sortColumn='Region'/>
-					
-					<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>
-	
+		{/*<div align="center"><TextButton align="center" id="GoBack" onClick={() => this.setState({ showTable: false })} text="Go Back" /></div>}*/}
 				</div>
 			)
-		}
+		/*}*/
 	}
 }
