@@ -7,7 +7,7 @@ import AddRoom from './add_room';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import SearchBar from './search-bar/search.component';
-import Magnifying_glass from './magnifying-glass.png';
+import magnifying_glass from './magnifying-glass.png';
 
 export default class ApartmentList extends React.Component {
 
@@ -203,7 +203,11 @@ export default class ApartmentList extends React.Component {
             rows.push(row)
         })
 
-        let tableData = { Headers: headers, Rows: rows }
+		let tableData = { Headers: headers, Rows: rows }
+		
+		const styles= {
+            display: "inline-flex"
+        }
 
 		if(this.state.showTable===false){
 			return (
@@ -255,9 +259,9 @@ export default class ApartmentList extends React.Component {
 								</select>
 						</td>}
 						</tr></table>
-						<div>
-						Search<img src={Magnifying_glass} alt="QA logo" width="15px" height="15px"/>:
-						<SearchBar search={this.search}/>
+						<div style={styles}>
+						<img src={magnifying_glass} alt="QA logo" width="25px" height="25px"/> &nbsp;<SearchBar search={this.search}/>
+						<br/>
 						<br/>
 						</div>
 					<QATableSorted 
