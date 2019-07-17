@@ -12,6 +12,8 @@ export default class sideBar extends React.Component {
 
    render () {	
 	let role = this.props.role
+	let service = this.props.service
+	console.log("SIDEBAR SERVICE"+service)
 	return (
 		<div>
 		<Menu htmlClassName={"OpenMenu"} 
@@ -21,7 +23,7 @@ export default class sideBar extends React.Component {
 			  pageWrapId={ "page-wrap" } 
 			  outerContainerId={ "outer-container" }
 		>
-			{this.props.links[role].side.map(button => {
+			{this.props.links[role].side[service].map(button => {
 				return <Nav.Link onClick={()=>this.props.content(button.content)}>{button.name}</Nav.Link>
 			})}
 		</Menu>
