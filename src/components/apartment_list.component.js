@@ -209,8 +209,8 @@ export default class ApartmentList extends React.Component {
 
         this.state.databaseresponse.map(data => {
 			let _id = data._id
-			let apartname= data.apartment_name
             let row = {
+				'ID': _id,
                 'Region': data.apartment_region,
                 'Apartment Number': data.apartment_name,
                 'Apartment Address': data.apartment_address,
