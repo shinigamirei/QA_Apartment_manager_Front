@@ -4,7 +4,9 @@ import RoomList from "./room_list.component"
  import AvailabilityList from "./availability_list.component"
  import ByDateList from "./by_date_list.component"
  import QATable from "./Generics/qa-table.component"
-import ApartmentAdmin from "./apartment_admin";
+import ApartmentAdmin from "./apartment_admin"
+import ApartmentDetail from "./apartment_detail.component"
+
 export default class ApartmentLanding extends React.Component
 {
 
@@ -14,6 +16,8 @@ export default class ApartmentLanding extends React.Component
 
     render()
     {
+
+        
 
         return (
             <div>

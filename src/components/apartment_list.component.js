@@ -8,6 +8,7 @@ import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import SearchBar from './search-bar/search.component';
 import magnifying_glass from './magnifying-glass.png';
+import ApartmentDetail from "./apartment_detail.component"
 
 export default class ApartmentList extends React.Component {
 
@@ -222,7 +223,14 @@ export default class ApartmentList extends React.Component {
 		
 		const styles= {
             display: "inline-flex"
-        }
+		}
+		
+
+		let dataa = {
+			Headers: [{'header':'Name', 'width':400}, {'header':'Age', 'width':400}, {'header':'Button', 'width':400}],
+			Rows: [{'Name': 'John', 'Age': '22'},
+					{'Name': 'Jane', 'Age': '26'}]
+		}
 
 		/*if(this.state.showTable===false){
 			return (
@@ -280,13 +288,13 @@ export default class ApartmentList extends React.Component {
 						<br/>
 						</div>
 					<QATableSorted 
-						data={tableData} 
+						data={dataa} 
 						sortColumn='Region'
 						getTrProps={(state, rowInfo) => {
 							return {
 							  onClick: (e) => {
 								  console.log(rowInfo)
-								  this.props.content(<div><h1>Placeholder details page</h1><h3>{JSON.stringify(rowInfo.original)}</h3></div>)
+								  this.props.content(<ApartmentDetail aprtDetail={rowInfo.original}/>)
 							  }
 							}
 						  }
