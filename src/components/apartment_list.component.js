@@ -224,13 +224,6 @@ export default class ApartmentList extends React.Component {
 		const styles= {
             display: "inline-flex"
 		}
-		
-
-		let dataa = {
-			Headers: [{'header':'Name', 'width':400}, {'header':'Age', 'width':400}, {'header':'Button', 'width':400}],
-			Rows: [{'Name': 'John', 'Age': '22'},
-					{'Name': 'Jane', 'Age': '26'}]
-		}
 
 		/*if(this.state.showTable===false){
 			return (
@@ -288,7 +281,7 @@ export default class ApartmentList extends React.Component {
 						<br/>
 						</div>
 					<QATableSorted 
-						data={dataa} 
+						data={tableData} 
 						sortColumn='Region'
 						getTrProps={(state, rowInfo) => {
 							return {
