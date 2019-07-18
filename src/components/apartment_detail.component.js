@@ -55,24 +55,23 @@ export default class ApartmentDetail extends React.Component {
                     {JSON.stringify(text)}
                 </div>
 
-
                 <div>
                     <div><h2>Occupiers</h2></div>
                     <div>
-                        <ul >
+                        <ul style={{ lineHeight: "15px" }}>
                             {occupiers
                                 .map(
                                     occupiers =>
-                                        <li value={occupiers} key={occupiers} style={{listStyleType: "none", marginLeft: "-40px"}}>
-                                            <span style={{display: "inline-flex"}}><p style={{fontSize: "x-large"}}>{`${occupiers.f_name} ${occupiers.l_name}, `}</p>&nbsp;&nbsp;&nbsp;
-                                            <p style={{fontSize: "x-large"}}> <b> Phone Number:  </b> {occupiers.phone_number},</p>&nbsp;&nbsp;&nbsp;
-                                            <p style={{fontSize: "x-large"}}> <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}</p>
+                                        <li value={occupiers} key={occupiers} style={{ listStyleType: "none", marginLeft: "-40px" }}>
+                                            <span style={{ display: "inline-flex" }}><p style={{ fontSize: "large" }}>{`${occupiers.f_name} ${occupiers.l_name}, `}</p>&nbsp;&nbsp;&nbsp;
+                                            <p style={{ fontSize: "large" }}> <b> Phone Number:  </b> {occupiers.phone_number},</p>&nbsp;&nbsp;&nbsp;
+                                            <p style={{ fontSize: "large" }}> <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}</p>
                                             </span>
                                         </li>)}
                         </ul>
                     </div>
-
                 </div>
+                <hr/>
             </div>
         );
     }
