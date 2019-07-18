@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import TextButton from './Generics/text-button.component';
 import aprtmentImage from './apartment.jpg';
-
+import AddOccupancy from './add_occupancy';
 
 
 export default class ApartmentDetail extends React.Component {
@@ -11,10 +11,19 @@ export default class ApartmentDetail extends React.Component {
         super(props);
       
         this.state = {
-        };
-      
-    }
+			showForm_AssignTrainee : false
+        };  
+        this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
+        this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
 
+	}
+	
+    handleButtonAddOccupany(e) {
+       this.setState({showForm_AssignTrainee: true});
+    }
+    handleButtonCloseOccupany(e) {
+       this.setState({showForm_AssignTrainee: false});
+    }
     render() {
         let _aprtDetail = this.props.aprtDetail;
 
@@ -76,9 +85,15 @@ export default class ApartmentDetail extends React.Component {
             <div>
                     {JSON.stringify(_aprtDetail)}
                 </div>
-                
-            <TextButton float="right">Book</TextButton>
-
+                <span style={{ float: "right" }}>
+            	<TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add occupant</TextButton><br/>
+				{this.state.showForm_AssignTrainee && 
+					<div>
+						<AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]}/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+						<TextButton float="right"  id="Close" onClick={this.handleButtonCloseOccupany}>Close</TextButton>
+					</div>
+				}
+				</span>
                 <h2>Apartment View</h2>
 
                 <span style={{ display: "inline-flex" }}>
