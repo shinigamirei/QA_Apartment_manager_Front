@@ -57,6 +57,7 @@ export default class QATableSorted extends React.Component {
                 style={{
                         height: "400px"
                 }}
+                getTrProps={this.props.getTrProps}
             />
         );
     };
