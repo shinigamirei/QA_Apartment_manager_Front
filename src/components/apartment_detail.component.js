@@ -153,6 +153,7 @@ export default class ApartmentDetail extends React.Component {
 
 
             </div>
+            </div>
         );
     }
 }
