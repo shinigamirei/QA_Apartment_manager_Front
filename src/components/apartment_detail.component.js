@@ -19,12 +19,12 @@ export default class ApartmentDetail extends React.Component {
 
         let issues = [
             {
-                "id":"565",
+                "id": "565",
                 "name": "dummy name of issue",
                 "issue": "This is placeholder text for issue One."
             },
             {
-                "id":"566",
+                "id": "566",
                 "name": "dummy name of issue",
                 "issue": "This is placeholder text for issue Two."
             }
@@ -32,12 +32,12 @@ export default class ApartmentDetail extends React.Component {
 
         let moreInfo = [
             {
-                "id":"567",
+                "id": "567",
                 "name": "dummy name of information",
                 "information": "This is placeholder text for first set of information."
             },
             {
-                "id":"568",
+                "id": "568",
                 "name": "dummy name of information",
                 "information": "This is placeholder text for second set of information."
             }
@@ -47,6 +47,9 @@ export default class ApartmentDetail extends React.Component {
 
         return (
             <div>
+                <div>
+                    {JSON.stringify(_aprtDetail)}
+                </div>
                 <div>
                     <div><h2>Issues</h2></div>
                     <div>
