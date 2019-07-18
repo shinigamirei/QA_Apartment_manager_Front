@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import TextButton from './Generics/text-button.component';
+import aprtmentImage from './apartment.jpg';
+
 
 
 export default class ApartmentDetail extends React.Component {
@@ -8,20 +11,12 @@ export default class ApartmentDetail extends React.Component {
 
         super(props);
         this.state = {
-            databaseresponse: []
         };
     }
 
-    render() {
-        let text = this.props.aprtDetail
 
-        let myText = {
-            "ID": "5d2857beb08369211e5cfa9f",
-            "Region": "Brighton",
-            "Apartment Number": "Demo apartment 1",
-            "Apartment Address": "123 Example Street",
-            "Availability": "3/3 available"
-        }
+    render() {
+        let _aprtDetail = this.props.aprtDetail
 
         let occupiers = [
             {
@@ -49,30 +44,52 @@ export default class ApartmentDetail extends React.Component {
         ]
 
         return (
-
             <div>
-                <div>
-                    {JSON.stringify(text)}
-                </div>
+
+            <TextButton float="right">Book</TextButton>
+
+                <h2>Apartment View</h2>
+
+                <span style={{ display: "inline-flex" }}>
+
+                    <img src={aprtmentImage} style={{ width: "400px", height: "267px" }}></img>
+                    &nbsp;&nbsp;&nbsp;
 
 
-                <div>
-                    <div><h2>Occupiers</h2></div>
                     <div>
-                        <ul >
+                        <div><h3 align="center">{JSON.stringify(_aprtDetail["Apartment Number"]).replace(/\"/g, "")}</h3></div>
+                        <div><h2 align="center">{JSON.stringify(_aprtDetail["Apartment Address"]).replace(/\"/g, "")}</h2></div>
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+                <h3 style={{ position: "relative", left: "42px", top: "45px" }}>{JSON.stringify(_aprtDetail.Availability).replace(/\"/g, "")}</h3>
+                </span>
+                <hr />
+                <div>
+                    <div><h4>Occupiers</h4></div>
+                    <div>
+                        <ul style={{ lineHeight: "15px" }} >
                             {occupiers
                                 .map(
                                     occupiers =>
-                                        <li value={occupiers} key={occupiers} style={{listStyleType: "none", marginLeft: "-40px"}}>
-                                            <span style={{display: "inline-flex"}}><p style={{fontSize: "x-large"}}>{`${occupiers.f_name} ${occupiers.l_name}, `}</p>&nbsp;&nbsp;&nbsp;
-                                            <p style={{fontSize: "x-large"}}> <b> Phone Number:  </b> {occupiers.phone_number},</p>&nbsp;&nbsp;&nbsp;
-                                            <p style={{fontSize: "x-large"}}> <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}</p>
+                                        <li value={occupiers} key={occupiers} style={{ listStyleType: "none", marginLeft: "-40px" }}>
+                                            <span style={{ display: "inline-flex" }}>
+                                                <p style={{ fontSize: "large" }}>
+                                                    {`${occupiers.f_name} ${occupiers.l_name}, `}
+                                                </p>&nbsp;&nbsp;&nbsp;
+
+                                            <p style={{ fontSize: "large" }}>
+                                                    <b> Phone Number:  </b> {occupiers.phone_number},
+                                            </p>&nbsp;&nbsp;&nbsp;
+    
+                                            <p style={{ fontSize: "large" }}>
+                                                    <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}
+                                                </p>
                                             </span>
                                         </li>)}
                         </ul>
                     </div>
-
                 </div>
+                <hr />
             </div>
         );
     }
