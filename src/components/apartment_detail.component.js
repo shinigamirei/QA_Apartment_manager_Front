@@ -22,6 +22,10 @@ export default class ApartmentDetail extends React.Component {
 
         return (
             <div>
+            <div>
+                    {JSON.stringify(_aprtDetail)}
+                </div>
+                
             <TextButton float="right">Book</TextButton>
 
                 <h2>Apartment View</h2>
