@@ -17,7 +17,30 @@ export default class ApartmentDetail extends React.Component {
     render() {
         let _aprtDetail = this.props.aprtDetail;
 
-        
+        let occupiers = [
+            {
+                "f_name": "Ben",
+                "l_name": "Benny",
+                "phone_number": "07777777777",
+                "start_date": "24/07/2019",
+                "end_date": "25/07/2019"
+            },
+            {
+                "f_name": "Sam",
+                "l_name": "Sammy",
+                "phone_number": "07777777777",
+                "start_date": "26/07/2019",
+                "end_date": "27/07/2019"
+            },
+            {
+                "f_name": "Tom",
+                "l_name": "Tommy",
+                "phone_number": "07777777777",
+                "start_date": "28/07/2019",
+                "end_date": "28/07/2019"
+            }
+
+        ]
 
         return (
             <div>
