@@ -13,13 +13,21 @@ export default class NavbarDisplay extends Component {
 
         this.state = {
             role: this.props.role,
-            content: ''
+            content: '',
+            service: 'Home'
         };
     }
 
     changeContent = event => {
         this.setState({content:  event})
         window.scrollTo(0, 0)
+        console.log("State Changed"+this.state.content)
+    };
+
+    changeService = event => {
+        this.setState({service:  event})
+        window.scrollTo(0, 0)
+        console.log("STATE SERVICE"+this.state.service)
     };
 
     componentWillMount(){
@@ -51,6 +59,7 @@ export default class NavbarDisplay extends Component {
                             role={this.state.role}
                             content={this.changeContent}
                             links={this.props.links}
+                            service={this.changeService}
                             />
                             {/* <Navbarr
                                 role={this.state.role}
@@ -64,6 +73,7 @@ export default class NavbarDisplay extends Component {
                                 role={this.state.role}
                                 content={this.changeContent}
                                 links={this.props.links}
+                                service={this.state.service}
                             />
                         </div>
                         <main id="page-wrap">

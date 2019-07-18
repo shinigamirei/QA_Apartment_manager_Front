@@ -79,7 +79,7 @@ export default class Navigation extends React.Component {
               <Nav className="mr-auto" navbar>
                 {this.props.links[role].buttons.map(button => {
                   console.log(button.name)
-                  return <Nav.Link onClick={() => this.props.content(button.content)}>{button.name}</Nav.Link>
+                  return <Nav.Link onClick={() => {this.props.content(button.content);this.props.service(button.name)}}>{button.name}</Nav.Link>
                 })}
                 {this.props.links[role].dropdowns.map(dropdown => {
                   console.log(dropdown.name)
