@@ -13,15 +13,7 @@ export default class ApartmentDetail extends React.Component {
     }
 
     render() {
-        let text = this.props.aprtDetail
-
-        let myText = {
-            "ID": "5d2857beb08369211e5cfa9f",
-            "Region": "Brighton",
-            "Apartment Number": "Demo apartment 1",
-            "Apartment Address": "123 Example Street",
-            "Availability": "3/3 available"
-        }
+        let _aprtDetail = this.props.aprtDetail
 
         let occupiers = [
             {
@@ -52,7 +44,7 @@ export default class ApartmentDetail extends React.Component {
 
             <div>
                 <div>
-                    {JSON.stringify(text)}
+                    {JSON.stringify(_aprtDetail)}
                 </div>
 
                 <div>
