@@ -49,7 +49,7 @@ export default class QATableSorted extends React.Component {
                 data={data}
                 columns={columns}
                 showPagination={false}
-                pageSize={(trainees.length > 10) ? trainees.length : 10}
+                pageSize={(data.length > 10) ? data.length : 10}
 				defaultSorted ={[{
 					id: this.state.sortColumn,
 					asc: true
