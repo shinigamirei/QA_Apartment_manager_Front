@@ -49,6 +49,7 @@ export default class QATableSorted extends React.Component {
                 data={data}
                 columns={columns}
                 showPagination={false}
+                pageSize={data.length}
 				defaultSorted ={[{
 					id: this.state.sortColumn,
 					asc: true
@@ -56,7 +57,6 @@ export default class QATableSorted extends React.Component {
                 style={{
                         height: "400px"
                 }}
-                getTrProps={this.props.getTrProps}
             />
         );
     };
