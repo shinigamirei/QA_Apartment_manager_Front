@@ -23,6 +23,7 @@ export default class ApartmentLanding extends React.Component
             <div>
                 {/* <ApartmentAdmin/> */}
                 <ApartmentList content = {this.changeContent}/>
+                {/* <ApartmentDetail></ApartmentDetail> */}
             </div>
         );
     }
