@@ -4,12 +4,6 @@ import Login from './login.component'
 import React, { Component }  from 'react';
 import ApartmentLanding from '../apartment_manager_landing.component';
 
-
-
-
-let func = function(x){console.log(x)}
-
-
 export const myConfig =
 {
     "null": <Login/>,
@@ -40,22 +34,19 @@ export const myConfig =
     "admin": {
         "home": <ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>,
         "buttons": [
-                        {'name': 'Home', 'content': <ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>}
+                        {'name': 'Home', 'content': <ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>},
+                        {'name': 'Apartments', 'content': <ApartmentLanding className="ApartmentLandingComponent"></ApartmentLanding>}
                    ],
-        "dropdowns":[
-                        {   'name': 'Demo Dropdown',
-                            'content':[
-                                        {'name': 'Admin placeholder 1', 'content':<AdminHome id="helloworld"/>},
-                                        {'name': 'Admin placeholder 2', 'content':<Admin1/>},
-                                        {'name': 'Admin placeholder 3', 'content': <Admin2/>},
-                                        {'name': 'Admin placeholder 4', 'content': <Admin3/>},
-                                        {'name': 'Admin placeholder 5', 'content': <Admin4/>}
-                                      ]
-                        }
-                    ],
-        "side": [
-                        {'name': 'Admin Sidebar Link 1', 'content': <Admin5/>},
-                        {'name': 'Admin Sidebar Link 2', 'content': <Admin6/>}
-                   ],
+        "dropdowns":[],
+        "side": {
+            "Apartments":[
+                {'name': 'Admin Apartments Sidebar Link 1', 'content': <Admin5/>},
+                {'name': 'Admin Apartments Sidebar Link 2', 'content': <Admin6/>}
+            ],
+            "Home":[
+                {'name': 'Admin Home Sidebar Link 1', 'content': <Admin5/>},
+                {'name': 'Admin Home Sidebar Link 2', 'content': <Admin6/>}
+            ]
+        }
     }
 }
