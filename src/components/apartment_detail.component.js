@@ -62,12 +62,21 @@ export default class ApartmentDetail extends React.Component {
                             {occupiers
                                 .map(
                                     occupiers =>
-                                        <li value={occupiers} key={occupiers} style={{ listStyleType: "none", marginLeft: "-40px" }}>
-                                            <span style={{ display: "inline-flex" }}><p style={{ fontSize: "large" }}>{`${occupiers.f_name} ${occupiers.l_name}, `}</p>&nbsp;&nbsp;&nbsp;
-                                            <p style={{ fontSize: "large" }}> <b> Phone Number:  </b> {occupiers.phone_number},</p>&nbsp;&nbsp;&nbsp;
-                                            <p style={{ fontSize: "large" }}> <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}</p>
-                                            </span>
-                                        </li>)}
+                                    <li value={occupiers} key={occupiers} style={{ listStyleType: "none", marginLeft: "-40px" }}>
+                                    <span style={{ display: "inline-flex" }}>
+                                        <p style={{ fontSize: "large" }}>
+                                            {`${occupiers.f_name} ${occupiers.l_name}, `}
+                                        </p>&nbsp;&nbsp;&nbsp;
+
+                                    <p style={{ fontSize: "large" }}>
+                                            <b> Phone Number:  </b> {occupiers.phone_number},
+                                    </p>&nbsp;&nbsp;&nbsp;
+
+                                    <p style={{ fontSize: "large" }}>
+                                            <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}
+                                        </p>
+                                    </span>
+                                </li>)}
                         </ul>
                     </div>
                 </div>
