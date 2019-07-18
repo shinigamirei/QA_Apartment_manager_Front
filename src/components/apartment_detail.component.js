@@ -45,7 +45,6 @@ export default class ApartmentDetail extends React.Component {
 
         return (
             <div>
-
             <TextButton float="right">Book</TextButton>
 
                 <h2>Apartment View</h2>
