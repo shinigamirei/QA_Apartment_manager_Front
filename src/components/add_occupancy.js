@@ -16,11 +16,19 @@ export default class AddOccupancy extends Component {
         occupancy_start: new Date(),
         occupancy_end: new Date(),
 		
-		trainees: [{"_id":"Person1",trainee_fname:"Michael",trainee_lname:"Wright"},{"_id":"Person2",trainee_fname:"Rob",trainee_lname:"Anderson"},{"_id":"Person3",trainee_fname:"Lisa",trainee_lname:"Gulliver"},{"_id":"Person4",trainee_fname:"James",trainee_lname:"Price"}]
+		trainees: []
     }
 	
   }
-
+    componentDidMount() {
+		axios.get('http://'+process.env.REACT_APP_ADD_OCCUPY+'/trainee/getTraineeNames/')
+		    .then(response => {
+                this.setState({ trainees: response.data })
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+	}
   
   handleChange = (event) => {
     this.setState({
@@ -82,14 +90,13 @@ export default class AddOccupancy extends Component {
     return (
         <div style={this.props.divStyles? this.props.divStyles: { display: 'inline-flex', float: this.props.float }}>
       <form className="forcesize" onSubmit={this.onSubmit}>
-        
         Trainee
         <br></br>
         <label htmlFor="Trainee" ></label>
         <select id="trainee_id" onChange={this.handleChange}>
 			<option disabled selected value> -- select a trainee -- </option>
 			{this.state.trainees.map(trainee =>{
-				return <option value={trainee._id}>{trainee.trainee_fname} {trainee.trainee_lname}</option>
+				return <option value={trainee.trainee_id}>{trainee.trainee_fname} {trainee.trainee_lname}</option>
 			})}
 		</select>
         <br></br>
