@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import TextButton from './Generics/text-button.component';
-import aprtmentImage from './apartment.jpg';
 import AddOccupancy from './add_occupancy';
+import logo from './container-component/QA_logo.png';
+
 
 
 export default class ApartmentDetail extends React.Component {
@@ -82,9 +83,6 @@ export default class ApartmentDetail extends React.Component {
 
         return (
             <div>
-
-                <div>
-                </div>
                 <span style={{ float: "right" }}>
                     <TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add occupant</TextButton><br />
                     {this.state.showForm_AssignTrainee &&
@@ -97,8 +95,10 @@ export default class ApartmentDetail extends React.Component {
 
                 <span style={{ display: "inline-flex" }}>
 
-                    <img src={aprtmentImage} style={{ width: "400px", height: "267px" }}></img>
-                    &nbsp;&nbsp;&nbsp;
+                <div>
+                <img src={logo} style={{ width: "250px", height: "159px" }}></img>
+                </div>
+                &nbsp;&nbsp;&nbsp;
 
 
                     <div>
