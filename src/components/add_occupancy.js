@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import TextButton from './Generics/text-button.component';
+import './css/form.css'
 var moment = require('moment');
 const API ='http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/addOccupancy/';
 
@@ -80,7 +81,10 @@ export default class AddOccupancy extends Component {
   }
   render() {
     return (
-        <div style={this.props.divStyles? this.props.divStyles: { display: 'inline-flex', float: this.props.float }}>
+        <div className="occupancy-overlay" 
+        // Removed to position correct in overlay
+        // style={this.props.divStyles? this.props.divStyles: { display: 'inline-flex', float: this.props.float }}
+        >
       <form className="forcesize" onSubmit={this.onSubmit}>
         
         Trainee

@@ -3,6 +3,9 @@ import axios from 'axios';
 import TextButton from './Generics/text-button.component';
 import AddOccupancy from './add_occupancy';
 import logo from './container-component/QA_logo.png';
+import Overlay from './Generics/overlay.component';
+import './css/QAOverlay.css'
+import Modal from 'react-bootstrap/Modal';
 
 
 
@@ -12,7 +15,8 @@ export default class ApartmentDetail extends React.Component {
         super(props);
 
         this.state = {
-            showForm_AssignTrainee: false
+            showForm_AssignTrainee: false,
+            showModal: false
         };
         this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
@@ -20,10 +24,10 @@ export default class ApartmentDetail extends React.Component {
     }
 
     handleButtonAddOccupany(e) {
-        this.setState({ showForm_AssignTrainee: true });
+        this.setState({ showModal: true });
     }
     handleButtonCloseOccupany(e) {
-        this.setState({ showForm_AssignTrainee: false });
+        this.setState({ showModal: false });
     }
     render() {
         console.log(this.props.role)
@@ -81,17 +85,10 @@ export default class ApartmentDetail extends React.Component {
             }
         ];
 
+        const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} />
+
         return (
             <div>
-                <span style={{ float: "right" }}>
-                    <TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add occupant</TextButton><br />
-                    {this.state.showForm_AssignTrainee &&
-                        <div>
-                            <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                            <TextButton float="right" id="Close" onClick={this.handleButtonCloseOccupany}>Close</TextButton>
-                        </div>
-                    }
-                </span>
 
                 <span style={{ display: "inline-flex" }}>
 
@@ -109,6 +106,39 @@ export default class ApartmentDetail extends React.Component {
                 <h3 style={{ position: "relative", left: "42px", top: "45px" }}>{JSON.stringify(_aprtDetail.Availability).replace(/\"/g, "")}</h3>
                 </span>
                 <hr />
+                <span style={{ float: "right" }}>
+                    <TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add Occupant</TextButton><br />
+                    {this.state.showModal &&
+                        <div>
+                            <Modal
+                                show={this.state.showModal}
+                                onHide={this.handleButtonCloseOccupany}
+                                backdrop={true}
+                                backdropClassName="backdrop-style"
+                                dialogClassName="modal-style"
+                                aria-labelledby="modal-label"
+                            >
+
+                            <Modal.Header >
+                                <h4 id="modal-label" className="overlay-title">Add Occupant</h4>
+                            </Modal.Header>
+
+                            <Modal.Body>
+                                {overlayContent}
+                            </Modal.Body>
+
+                            <Modal.Footer>                <button
+                                className='close-btn'
+                                onClick={this.handleButtonCloseOccupany}
+                            >Close</button><br></br></Modal.Footer>
+                            </Modal>
+                            {/* Old form below added in Modal above */}
+                            {/* <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} /> */}
+                            {/* <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> */}
+                            {/* <TextButton float="right" id="Close" onClick={this.handleButtonCloseOccupany}>Close</TextButton> */}
+                        </div>
+                    }
+                </span>
 
                 <div>
                     <div><h2>Occupiers</h2></div>
