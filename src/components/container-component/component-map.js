@@ -1,8 +1,9 @@
-import { AdminHome, Admin1, Admin2, Admin3, Admin4, Admin5, Admin6,
+import {Admin5, Admin6,
          RecruiterHome, Recruiter1, Recruiter2, Recruiter3, Recruiter4, Recruiter5, Recruiter6 } from'./placeholder-components';
 import Login from './login.component'
 import React, { Component }  from 'react';
 import ApartmentLanding from '../apartment_manager_landing.component';
+import ApartmentAdmin from '../create-apartment.component';
 
 export const myConfig =
 {
@@ -40,12 +41,10 @@ export const myConfig =
         "dropdowns":[],
         "side": {
             "Apartments":[
-                {'name': 'Admin Apartments Sidebar Link 1', 'content': <Admin5/>},
-                {'name': 'Admin Apartments Sidebar Link 2', 'content': <Admin6/>}
+                {'name': 'Create Apartment', 'content': <ApartmentAdmin/>},
             ],
             "Home":[
-                {'name': 'Admin Home Sidebar Link 1', 'content': <Admin5/>},
-                {'name': 'Admin Home Sidebar Link 2', 'content': <Admin6/>}
+                {'name': 'Create Apartment', 'content': <ApartmentAdmin/>},
             ]
         }
     }

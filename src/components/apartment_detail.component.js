@@ -25,6 +25,7 @@ export default class ApartmentDetail extends React.Component {
        this.setState({showForm_AssignTrainee: false});
     }
     render() {
+        console.log(this.props.role)
         let _aprtDetail = this.props.aprtDetail;
 
         let occupiers = [
@@ -83,7 +84,6 @@ export default class ApartmentDetail extends React.Component {
             <div>
 
             <div>
-                    {JSON.stringify(_aprtDetail)}
                 </div>
                 <span style={{ float: "right" }}>
             	<TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add occupant</TextButton><br/>
@@ -94,7 +94,6 @@ export default class ApartmentDetail extends React.Component {
 					</div>
 				}
 				</span>
-                <h2>Apartment View</h2>
 
                 <span style={{ display: "inline-flex" }}>
 
