@@ -1,0 +1,13 @@
+.occupancy-form {
+    display: inline-flex;
+    float: right;
+    text-align: center;
+    left: 4px;
+    position: relative;
+}
+
+.occupancy-overlay {
+    text-align: center;
+    left: 4px;
+    position: relative;
+}
