@@ -77,7 +77,7 @@ export default class NavbarDisplay extends Component {
                             />
                         </div>
                         <main id="page-wrap">
-                            <Content content={this.changeContent}>
+                            <Content content={this.changeContent} role={this.state.role}>
                                 {this.state.content}
                             </Content>
                         </main>

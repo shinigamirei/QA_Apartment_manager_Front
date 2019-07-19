@@ -287,7 +287,7 @@ export default class ApartmentList extends React.Component {
 							return {
 							  onClick: (e) => {
 								  console.log(rowInfo)
-								  this.props.content(<ApartmentDetail aprtDetail={rowInfo.original}/>)
+								  this.props.content(<ApartmentDetail aprtDetail={rowInfo.original} role={this.props.role}/>)
 							  }
 							}
 						  }

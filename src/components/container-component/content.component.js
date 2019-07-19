@@ -17,7 +17,7 @@ export default class Content extends Component {
         }
         return (
             <div style={styles}>
-                {React.cloneElement(this.props.children, { content: this.props.content })}
+                {React.cloneElement(this.props.children, { content: this.props.content, role: this.props.role })}
             </div>
         );
     };

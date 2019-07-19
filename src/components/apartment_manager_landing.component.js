@@ -21,9 +21,7 @@ export default class ApartmentLanding extends React.Component
 
         return (
             <div>
-                {/* <ApartmentAdmin/> */}
-                <ApartmentList content = {this.changeContent}/>
-                {/* <ApartmentDetail></ApartmentDetail> */}
+                <ApartmentList content = {this.changeContent} role={this.props.role}/>
             </div>
         );
     }
