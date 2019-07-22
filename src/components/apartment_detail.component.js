@@ -27,7 +27,6 @@ export default class ApartmentDetail extends React.Component {
     componentDidMount(){
         axios.get('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/getOccupiers/'+this.props.aprtDetail.ID)
         .then(response => {
-            console.log(response.data)
             this.setState({occupiers: response.data})
         })
     }
@@ -42,32 +41,6 @@ export default class ApartmentDetail extends React.Component {
         console.log(this.props.role)
         let _aprtDetail = this.props.aprtDetail;
         let occupiers = this.state.occupiers;
-
-        // let occupiers = [
-        //     {
-        //         "f_name": "Ben",
-        //         "l_name": "Benny",
-        //         "phone_number": "07777777777",
-        //         "start_date": "24/07/2019",
-        //         "end_date": "25/07/2019"
-        //     },
-        //     {
-        //         "f_name": "Sam",
-        //         "l_name": "Sammy",
-        //         "phone_number": "07777777777",
-        //         "start_date": "26/07/2019",
-        //         "end_date": "27/07/2019"
-        //     },
-        //     {
-        //         "f_name": "Tom",
-        //         "l_name": "Tommy",
-        //         "phone_number": "07777777777",
-        //         "start_date": "28/07/2019",
-        //         "end_date": "28/07/2019"
-        //     }
-
-        // ]
-
 
         let issues = [
             {
