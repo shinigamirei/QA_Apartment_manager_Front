@@ -6,6 +6,7 @@ import logo from './container-component/QA_logo.png';
 import Overlay from './Generics/overlay.component';
 import './css/QAOverlay.css'
 import Modal from 'react-bootstrap/Modal';
+import ApartmentList from './apartment_list.component';
 
 
 
@@ -14,14 +15,20 @@ export default class ApartmentDetail extends React.Component {
     constructor(props) {
         super(props);
 
+        
+
         this.state = {
             showForm_AssignTrainee: false,
             showModal: false
         };
+
+        
+
         this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
 
     }
+    
 
     handleButtonAddOccupany(e) {
         this.setState({ showModal: true });
@@ -30,6 +37,8 @@ export default class ApartmentDetail extends React.Component {
         this.setState({ showModal: false });
     }
     render() {
+    
+
         console.log(this.props.role)
         let _aprtDetail = this.props.aprtDetail;
 
@@ -88,8 +97,8 @@ export default class ApartmentDetail extends React.Component {
         const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} />
 
         return (
+            
             <div>
-
                 <span style={{ display: "inline-flex" }}>
 
                 <div>
@@ -103,8 +112,12 @@ export default class ApartmentDetail extends React.Component {
                         <div><h2 align="center">{JSON.stringify(_aprtDetail["Apartment Address"]).replace(/\"/g, "")}</h2></div>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+                    
+
                 <h3 style={{ position: "relative", left: "42px", top: "45px" }}>{JSON.stringify(_aprtDetail.Availability).replace(/\"/g, "")}</h3>
+                
                 </span>
+                <div className=""><button className="" onClick={()=> this.props.content(<ApartmentList />)}>Go Back</button></div>
                 <hr />
                 <span style={{ float: "right" }}>
                     <TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add Occupant</TextButton><br />
