@@ -98,8 +98,12 @@ export default class ApartmentDetail extends React.Component {
                 <span style={{ display: "inline-flex" }}>
 				
                 <div>
-				{(JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, "") != "") ? (
-					<img src={require('./image/'+JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, ""))} style={{ width: "250px", height: "159px" }}></img>
+				{(JSON.stringify(_aprtDetail["Apartment Image"]) != null) ? (
+					(JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, "") != "" ) ? (
+						<img src={require('./image/'+JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, ""))} style={{ width: "250px", height: "159px" }}></img>
+					):(
+						<img src={require('./image/'+this.state.defImage)} style={{ width: "250px", height: "159px" }}></img>
+					)
 				):(
 					<img src={require('./image/'+this.state.defImage)} style={{ width: "250px", height: "159px" }}></img>
 				)}
