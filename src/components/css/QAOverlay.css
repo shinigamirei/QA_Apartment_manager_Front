@@ -20,6 +20,7 @@
   /* Adjusted for occupancy form */
   min-width: 60vw;
   z-index: 1040;
+  height: 568px;
   position: absolute;
   overflow-y: auto;
   overflow-x: hidden;
