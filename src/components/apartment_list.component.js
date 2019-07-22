@@ -215,6 +215,7 @@ export default class ApartmentList extends React.Component {
                 'Apartment Number': data.apartment_name,
                 'Apartment Address': data.apartment_address,
                 'Availability': data.room_count,
+                'Apartment Image': data.apartment_image,
             }
             rows.push(row)
         })
