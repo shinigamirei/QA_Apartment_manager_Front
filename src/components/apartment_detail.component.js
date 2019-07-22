@@ -100,7 +100,14 @@ export default class ApartmentDetail extends React.Component {
 
                     <div>
                         <div><h3 align="center">{JSON.stringify(_aprtDetail["Apartment Number"]).replace(/\"/g, "")}</h3></div>
-                        <div><h2 align="center">{JSON.stringify(_aprtDetail["Apartment Address"]).replace(/\"/g, "")}</h2></div>
+                        <div><h2 align="center">{JSON.stringify(_aprtDetail["Apartment Address"])
+                        .replace(/\"/g, "")
+                        .split(',')
+                        .map((item, key) => {
+                            return <span key={key}>{item}<br/></span>
+                            })}
+                            </h2>
+                    </div>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style={{ position: "relative", left: "42px", top: "45px" }}>{JSON.stringify(_aprtDetail.Availability).replace(/\"/g, "")}</h3>
