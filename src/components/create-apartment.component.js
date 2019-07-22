@@ -25,7 +25,8 @@ export default class Example extends React.Component {
                                     "apartment_address":x['Apartment Address'],
                                     "apartment_region":x['Apartment Region'],
                                     "apartment_rooms":x['Number of Rooms'],
-                                    "room_occupancies":[]
+                                    "room_occupancies":[],
+                                    "apartment_image":'QA_logo.png'
                             }
                             console.log(apartment)
                             axios.post('http://' + process.env.REACT_APP_ROOM + '/apartment/create', apartment).then((response) => {
