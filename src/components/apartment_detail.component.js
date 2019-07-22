@@ -5,6 +5,7 @@ import AddOccupancy from './add_occupancy';
 import logo from './container-component/QA_logo.png';
 import Overlay from './Generics/overlay.component';
 import './css/QAOverlay.css'
+
 import Modal from 'react-bootstrap/Modal';
 import ApartmentList from './apartment_list.component';
 
@@ -117,7 +118,7 @@ export default class ApartmentDetail extends React.Component {
                 <h3 style={{ position: "relative", left: "42px", top: "45px" }}>{JSON.stringify(_aprtDetail.Availability).replace(/\"/g, "")}</h3>
                 
                 </span>
-                <div className=""><button className="" onClick={()=> this.props.content(<ApartmentList />)}>Go Back</button></div>
+                <TextButton float="right" className="" onClick={()=> this.props.content(<ApartmentList />)}>Go Back</TextButton>
                 <hr />
                 <span style={{ float: "right" }}>
                     <TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add Occupant</TextButton><br />
