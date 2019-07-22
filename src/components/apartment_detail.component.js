@@ -16,7 +16,8 @@ export default class ApartmentDetail extends React.Component {
 
         this.state = {
             showForm_AssignTrainee: false,
-            showModal: false
+            showModal: false,
+			defImage: "QA_logo.png"
         };
         this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
@@ -29,6 +30,11 @@ export default class ApartmentDetail extends React.Component {
     handleButtonCloseOccupany(e) {
         this.setState({ showModal: false });
     }
+	
+	getImage = (url) => {
+		return require(url)
+    }
+	
     render() {
         console.log(this.props.role)
         let _aprtDetail = this.props.aprtDetail;
@@ -86,14 +92,17 @@ export default class ApartmentDetail extends React.Component {
         ];
 
         const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} />
-
         return (
             <div>
 
                 <span style={{ display: "inline-flex" }}>
-
+				
                 <div>
-                <img src={logo} style={{ width: "250px", height: "159px" }}></img>
+				{(JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, "") != "") ? (
+					<img src={require('./image/'+JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, ""))} style={{ width: "250px", height: "159px" }}></img>
+				):(
+					<img src={require('./image/'+this.state.defImage)} style={{ width: "250px", height: "159px" }}></img>
+				)}
                 </div>
                 &nbsp;&nbsp;&nbsp;
 
