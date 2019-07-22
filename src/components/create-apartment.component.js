@@ -11,7 +11,7 @@ export default class Example extends React.Component {
             data: [{"FieldText": "Apartment Number", "Type": "text" , "UniqueID": "apartmentNumber"},
                    {"FieldText": "Apartment Address", "Type": "text" , "UniqueID": "apartmentAddress"},
                    {"FieldText": "Apartment Region", "Type": "select" , "UniqueID": "apartmentRegion", "Options":["Brighton","Leeds","London","Manchester"]},
-                   {"FieldText": "Number of Rooms", "Type": "number" , "UniqueID": "apartmentNumber"}
+                   {"FieldText": "Number of Rooms", "Type": "number" , "UniqueID": "Number of Rooms"}
                 ]
         }
     }
