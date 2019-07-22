@@ -37,6 +37,7 @@
     bottom: 100;
     left: 1000;
     top: 60px !important;
+    width: 12% !important;
   }
   
   /* Color/shape of burger icon bars */
