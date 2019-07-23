@@ -20,6 +20,8 @@ export default class ApartmentDetail extends React.Component {
             showModal: false,
 			      defImage: "QA_logo.png",
             occupiers: [],
+			startDate: this.props.startDate,
+			endDate: this.props.endDate,
         };
         this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
@@ -74,7 +76,7 @@ export default class ApartmentDetail extends React.Component {
             }
         ];
 
-        const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} />
+        const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} startDate={this.props.startDate} endDate={this.props.endDate}/>
         return (
             <div>
 
@@ -106,8 +108,16 @@ export default class ApartmentDetail extends React.Component {
                             </h2>
                     </div>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+				<div>
                 <h3 style={{ position: "relative", left: "42px", top: "45px" }}>{JSON.stringify(_aprtDetail.Availability).replace(/\"/g, "")}</h3>
+				<h4 style={{ position: "relative", left: "42px", top: "45px" }}>
+				{(this.state.startDate.getTime() === this.state.endDate.getTime()) ? (
+					"(on " + moment(this.state.startDate).format('DD/MM/YYYY') + ")"
+				) : (
+					"(" + moment(this.state.startDate).format('DD/MM/YYYY') + " – " + moment(this.state.endDate).format('DD/MM/YYYY') + ")"
+				)}
+				</h4>
+				</div>
                 </span>
                 <hr />
                 <span style={{ float: "right" }}>
@@ -162,7 +172,7 @@ export default class ApartmentDetail extends React.Component {
                                     </p>&nbsp;&nbsp;&nbsp;
             
                                     <p style={{ fontSize: "large" }}>
-                                                    <b> Dates of Occupancy:  </b> {moment(occupiers.start_date).format('DD-MM-YYYY')} to {moment(occupiers.end_date).format('DD-MM-YYYY')}
+                                                    <b> Dates of Occupancy:  </b> {moment(occupiers.start_date).format('DD/MM/YYYY')} to {moment(occupiers.end_date).format('DD/MM/YYYY')}
                                                 </p>
                                             </span>
                                         </li>)}
