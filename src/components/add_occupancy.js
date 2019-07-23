@@ -16,8 +16,7 @@ export default class AddOccupancy extends Component {
         trainee_id: "def",
         occupancy_start: new Date(),
         occupancy_end: new Date(),
-		
-		trainees: []
+		    trainees: []
     }
 	
   }

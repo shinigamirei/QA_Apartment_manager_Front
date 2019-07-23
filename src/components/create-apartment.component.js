@@ -11,7 +11,7 @@ export default class Example extends React.Component {
             data: [{"FieldText": "Apartment Number", "Type": "text" , "UniqueID": "apartmentNumber"},
                    {"FieldText": "Apartment Address", "Type": "text" , "UniqueID": "apartmentAddress"},
                    {"FieldText": "Apartment Region", "Type": "select" , "UniqueID": "apartmentRegion", "Options":["Brighton","Leeds","London","Manchester"]},
-                   {"FieldText": "Number of Rooms", "Type": "number" , "UniqueID": "apartmentNumber"}
+                   {"FieldText": "Number of Rooms", "Type": "number" , "UniqueID": "Number of Rooms"}
                 ]
         }
     }
@@ -25,7 +25,8 @@ export default class Example extends React.Component {
                                     "apartment_address":x['Apartment Address'],
                                     "apartment_region":x['Apartment Region'],
                                     "apartment_rooms":x['Number of Rooms'],
-                                    "room_occupancies":[]
+                                    "room_occupancies":[],
+                                    "apartment_image":'QA_logo.png'
                             }
                             console.log(apartment)
                             axios.post('http://' + process.env.REACT_APP_ROOM + '/apartment/create', apartment).then((response) => {

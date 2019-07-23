@@ -8,6 +8,8 @@ import './css/QAOverlay.css'
 
 import Modal from 'react-bootstrap/Modal';
 import ApartmentList from './apartment_list.component';
+import moment from 'moment';
+
 
 
 
@@ -20,7 +22,9 @@ export default class ApartmentDetail extends React.Component {
 
         this.state = {
             showForm_AssignTrainee: false,
-            showModal: false
+            showModal: false,
+			      defImage: "QA_logo.png",
+            occupiers: [],
         };
 
         
@@ -29,7 +33,13 @@ export default class ApartmentDetail extends React.Component {
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
 
     }
-    
+
+    componentDidMount(){
+        axios.get('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/getOccupiers/'+this.props.aprtDetail.ID)
+        .then(response => {
+            this.setState({occupiers: response.data})
+        })
+    }
 
     handleButtonAddOccupany(e) {
         this.setState({ showModal: true });
@@ -37,37 +47,17 @@ export default class ApartmentDetail extends React.Component {
     handleButtonCloseOccupany(e) {
         this.setState({ showModal: false });
     }
+	
+	getImage = (url) => {
+		return require(url)
+    }
+	
     render() {
     
 
         console.log(this.props.role)
         let _aprtDetail = this.props.aprtDetail;
-
-        let occupiers = [
-            {
-                "f_name": "Ben",
-                "l_name": "Benny",
-                "phone_number": "07777777777",
-                "start_date": "24/07/2019",
-                "end_date": "25/07/2019"
-            },
-            {
-                "f_name": "Sam",
-                "l_name": "Sammy",
-                "phone_number": "07777777777",
-                "start_date": "26/07/2019",
-                "end_date": "27/07/2019"
-            },
-            {
-                "f_name": "Tom",
-                "l_name": "Tommy",
-                "phone_number": "07777777777",
-                "start_date": "28/07/2019",
-                "end_date": "28/07/2019"
-            }
-
-        ]
-
+        let occupiers = this.state.occupiers;
 
         let issues = [
             {
@@ -96,21 +86,36 @@ export default class ApartmentDetail extends React.Component {
         ];
 
         const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} />
-
         return (
             
             <div>
                 <span style={{ display: "inline-flex" }}>
-
+				
                 <div>
-                <img src={logo} style={{ width: "250px", height: "159px" }}></img>
+				{(JSON.stringify(_aprtDetail["Apartment Image"]) != null) ? (
+					(JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, "") != "" ) ? (
+						<img src={require('./image/'+JSON.stringify(_aprtDetail["Apartment Image"]).replace(/\"/g, ""))} style={{ width: "250px", height: "159px" }}></img>
+					):(
+						<img src={require('./image/'+this.state.defImage)} style={{ width: "250px", height: "159px" }}></img>
+					)
+				):(
+					<img src={require('./image/'+this.state.defImage)} style={{ width: "250px", height: "159px" }}></img>
+				)}
+
                 </div>
                 &nbsp;&nbsp;&nbsp;
 
 
                     <div>
                         <div><h3 align="center">{JSON.stringify(_aprtDetail["Apartment Number"]).replace(/\"/g, "")}</h3></div>
-                        <div><h2 align="center">{JSON.stringify(_aprtDetail["Apartment Address"]).replace(/\"/g, "")}</h2></div>
+                        <div><h2 align="center">{JSON.stringify(_aprtDetail["Apartment Address"])
+                        .replace(/\"/g, "")
+                        .split(',')
+                        .map((item, key) => {
+                            return <span key={key}>{item}<br/></span>
+                            })}
+                            </h2>
+                    </div>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     
@@ -172,7 +177,7 @@ export default class ApartmentDetail extends React.Component {
                                     </p>&nbsp;&nbsp;&nbsp;
             
                                     <p style={{ fontSize: "large" }}>
-                                                    <b> Dates of Occupancy:  </b> {occupiers.start_date} - {occupiers.end_date}
+                                                    <b> Dates of Occupancy:  </b> {moment(occupiers.start_date).format('DD-MM-YYYY')} to {moment(occupiers.end_date).format('DD-MM-YYYY')}
                                                 </p>
                                             </span>
                                         </li>)}
