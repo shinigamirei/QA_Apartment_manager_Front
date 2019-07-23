@@ -5,8 +5,11 @@ import AddOccupancy from './add_occupancy';
 import logo from './container-component/QA_logo.png';
 import Overlay from './Generics/overlay.component';
 import './css/QAOverlay.css'
+
 import Modal from 'react-bootstrap/Modal';
+import ApartmentList from './apartment_list.component';
 import moment from 'moment';
+
 
 
 
@@ -14,6 +17,8 @@ export default class ApartmentDetail extends React.Component {
 
     constructor(props) {
         super(props);
+
+        
 
         this.state = {
             showForm_AssignTrainee: false,
@@ -23,10 +28,14 @@ export default class ApartmentDetail extends React.Component {
 			startDate: this.props.startDate,
 			endDate: this.props.endDate,
         };
+
+        
+
         this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
 
     }
+
     componentDidMount(){
         axios.get('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/getOccupiers/'+this.props.aprtDetail.ID)
         .then(response => {
@@ -46,6 +55,8 @@ export default class ApartmentDetail extends React.Component {
     }
 	
     render() {
+    
+
         console.log(this.props.role)
         let _aprtDetail = this.props.aprtDetail;
         let occupiers = this.state.occupiers;
@@ -78,8 +89,8 @@ export default class ApartmentDetail extends React.Component {
 
         const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} startDate={this.props.startDate} endDate={this.props.endDate}/>
         return (
+            
             <div>
-
                 <span style={{ display: "inline-flex" }}>
 				
                 <div>
@@ -119,6 +130,7 @@ export default class ApartmentDetail extends React.Component {
 				</h4>
 				</div>
                 </span>
+                <TextButton float="right" className="" onClick={()=> this.props.content(<ApartmentList />)}>Go Back</TextButton>
                 <hr />
                 <span style={{ float: "right" }}>
                     <TextButton float="right" id="AddOccupancy" onClick={this.handleButtonAddOccupany}>Add Occupant</TextButton><br />
