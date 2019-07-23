@@ -41,9 +41,24 @@ export default class ApartmentDetail extends React.Component {
         .then(response => {
             this.setState({occupiers: response.data})
         })
+
+        // Returns prompt on refresh
+        window.onbeforeunload = function() {
+            return "";
+            }
+    }
+
+    componentWillUnmount() {
+        // Refresh prompt is overridden when component is unmounted 
+        window.onbeforeunload = function() {
+            return;
+            }
     }
 
     handleButtonAddOccupany(e) {
+        window.onbeforeunload = function() {
+            return;
+            }
         this.setState({ showModal: true });
     }
     handleButtonCloseOccupany(e) {

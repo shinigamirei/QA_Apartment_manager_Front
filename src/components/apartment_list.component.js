@@ -195,10 +195,8 @@ export default class ApartmentList extends React.Component {
         this.setState({form_id: id});
         this.setState({form_apartment: apartname});
         console.log(this.state.databaseresponse);
-      }
+	  }
 
-
-       
     render() {
         const showForm = this.state.showForm;
         let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Number', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
