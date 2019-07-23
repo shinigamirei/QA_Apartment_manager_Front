@@ -11,7 +11,8 @@ export default class Example extends React.Component {
             data: [{"FieldText": "Apartment Number", "Type": "text" , "UniqueID": "apartmentNumber"},
                    {"FieldText": "Apartment Address", "Type": "text" , "UniqueID": "apartmentAddress"},
                    {"FieldText": "Apartment Region", "Type": "select" , "UniqueID": "apartmentRegion", "Options":["Brighton","Leeds","London","Manchester"]},
-                   {"FieldText": "Number of Rooms", "Type": "number" , "UniqueID": "Number of Rooms"}
+                   {"FieldText": "Number of Rooms", "Type": "number" , "UniqueID": "Number of Rooms"},
+                   {"FieldText": "Additional Information", "Type": "text" , "UniqueID": "apartmentInfo"}
                 ]
         }
     }
@@ -26,6 +27,7 @@ export default class Example extends React.Component {
                                     "apartment_region":x['Apartment Region'],
                                     "apartment_rooms":x['Number of Rooms'],
                                     "room_occupancies":[],
+                                    "apartment_info":x['Additional Information'],
                                     "apartment_image":'QA_logo.png'
                             }
                             console.log(apartment)

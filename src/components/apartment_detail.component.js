@@ -25,6 +25,7 @@ export default class ApartmentDetail extends React.Component {
             showModal: false,
 			      defImage: "QA_logo.png",
             occupiers: [],
+            apartment_info: '',
 			startDate: this.props.startDate,
 			endDate: this.props.endDate,
         };
@@ -40,6 +41,11 @@ export default class ApartmentDetail extends React.Component {
         axios.get('http://'+process.env.REACT_APP_ADD_OCCUPY+'/apartment/getOccupiers/'+this.props.aprtDetail.ID)
         .then(response => {
             this.setState({occupiers: response.data})
+        })
+
+        axios.get('http://'+process.env.REACT_APP_GET_ALL+'/apartment/getById/'+this.props.aprtDetail.ID)
+        .then(response => {
+            this.setState({apartment_info: response.data.apartment_info})
         })
 
         // Returns prompt on refresh
@@ -92,18 +98,7 @@ export default class ApartmentDetail extends React.Component {
             }
         ];
 
-        let moreInfo = [
-            {
-                "id": "567",
-                "name": "dummy name of information",
-                "information": "This is placeholder text for first set of information."
-            },
-            {
-                "id": "568",
-                "name": "dummy name of information",
-                "information": "This is placeholder text for second set of information."
-            }
-        ];
+        let moreInfo = this.state.apartment_info
 
         const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} startDate={this.props.startDate} endDate={this.props.endDate}/>
         return (
@@ -228,14 +223,7 @@ export default class ApartmentDetail extends React.Component {
                 <div>
                     <div><h2>More information</h2></div>
                     <div>
-                        <ul style={{ lineHeight: "15px" }}>
-                            {moreInfo
-                                .map(
-                                    _moreInfo =>
-                                        <li value={_moreInfo} key={_moreInfo}>
-                                            <p style={{ fontSize: "large" }}>{_moreInfo.information}</p>
-                                        </li>)}
-                        </ul>
+                        {moreInfo}
                     </div>
 
 
