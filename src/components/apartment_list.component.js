@@ -31,17 +31,8 @@ export default class ApartmentList extends React.Component {
 			form_rooms: [],
 			date: new Date(),
 			region: 'All',
-			endDate: new Date(),
-			reloadPrompt: true
-		};
-		
-		// if (window.performance) {
-        //     if (performance.navigation.type == 1) {
-        //       alert( "This page is reloaded" );
-        //     } else {
-        //       alert( "This page is not reloaded");
-        //     }
-        //   }
+			endDate: new Date()
+        };  
         this.handleButtonShow_AssignTrainee = this.handleButtonShow_AssignTrainee.bind(this);
         this.handleButtonShow_AddRoom = this.handleButtonShow_AddRoom.bind(this);
         this.updateRegion = this.updateRegion.bind(this);
@@ -50,7 +41,6 @@ export default class ApartmentList extends React.Component {
 	}
 
     componentDidMount() {
-		// this.state.reloadPrompt = false;
 		let y=this.state.date.getFullYear();
 		let m=this.state.date.getMonth();
 		let d=this.state.date.getDate();
@@ -62,36 +52,6 @@ export default class ApartmentList extends React.Component {
         //        console.log(error);
         //    })
 		this.searchDate(y,m,d);
-
-	}
-	
-	componentDidUpdate() {
-		
-		if (document.getElementById("apartment-list")) {
-			// this.state.reloadPrompt = false;
-			console.log("List Was here" + this.state.reloadPrompt);
-		}
-
-		if(!document.getElementById("apartment-detail")){
-			console.log("Details not here");
-			// this.state.reloadPrompt = false;
-			window.onbeforeunload = function() {
-				return ;
-				}.bind(this);
-		}
-        // this.state.reloadPrompt = true;
-		// this.props.content(<ApartmentDetail reloadPrompt={this.state.reloadPrompt}/>);
-
-		// if (window.performance) {
-        //     if (performance.navigation.type === 1) {
-              
-        //         window.onbeforeunload = function() {
-        //             return "";
-        //             }.bind(this);
-
-        //     }
-        // }
-
     }
 	
 	DateChecker(){
@@ -235,10 +195,8 @@ export default class ApartmentList extends React.Component {
         this.setState({form_id: id});
         this.setState({form_apartment: apartname});
         console.log(this.state.databaseresponse);
-      }
+	  }
 
-
-       
     render() {
         const showForm = this.state.showForm;
         let headers = [ {'header': 'Region', 'width': 100}, { 'header': 'Apartment Number', 'width': 200 }, { 'header': 'Apartment Address', 'width': 300 }, 
@@ -286,7 +244,7 @@ export default class ApartmentList extends React.Component {
 			<div>
 				<table width="100%" >
 				<tr><td>
-					<h2 id="apartment-list">  
+					<h2>  
 					Apartment list: {this.state.region} 
 					</h2></td>
 						<td align="center">
@@ -328,7 +286,7 @@ export default class ApartmentList extends React.Component {
 							return {
 							  onClick: (e) => {
 								  console.log(rowInfo)
-								  this.props.content(<ApartmentDetail aprtDetail={rowInfo.original} role={this.props.role} reloadPrompt={this.state.reloadPrompt}/>)
+								  this.props.content(<ApartmentDetail aprtDetail={rowInfo.original} role={this.props.role}/>)
 							  }
 							}
 						  }

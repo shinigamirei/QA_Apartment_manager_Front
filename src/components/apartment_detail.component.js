@@ -18,14 +18,9 @@ export default class ApartmentDetail extends React.Component {
         this.state = {
             showForm_AssignTrainee: false,
             showModal: false,
-			defImage: "QA_logo.png",
+			      defImage: "QA_logo.png",
             occupiers: [],
-            reloadPrompt: this.props.reloadPrompt
-
         };
-
-        
-
         this.handleButtonAddOccupany = this.handleButtonAddOccupany.bind(this);
         this.handleButtonCloseOccupany = this.handleButtonCloseOccupany.bind(this);
 
@@ -35,105 +30,24 @@ export default class ApartmentDetail extends React.Component {
         .then(response => {
             this.setState({occupiers: response.data})
         })
-        
-        // console.log(this.props.reloadPrompt);
 
-        // if (window.performance) {
-        //     if (performance.navigation.type == 1) {
-        //       alert( "This page is reloaded" );
-        //     } else {
-        //       alert( "This page is not reloaded");
-        //     }
-        //   }
-
-
-
-        // if (window.performance) {
-        //     if (performance.navigation.type == 1) {
-        //       alert( "This page is reloaded" );
-        //     } else {
-        //       alert( "This page is not reloaded");
-        //     }
-        //   }
-
-        // window.onbeforeunload = function() {
-        //     return "";
-        //     }.bind(this);
-
-    //     window.onbeforeunload = function(event) {
-    //     return window.confirm("Confirm refresh");
-    // }
-
-        // window.addEventListener("beforeunload", this.mineTwo);
-
-    }
-
-    componentDidUpdate() {
-
-
+        // Returns prompt on refresh
         window.onbeforeunload = function() {
             return "";
             }
-        // if (window.performance) {
-        //     if (performance.navigation.type == 1) {
-        //       alert( "This page is reloaded" );
-        //     } else {
-        //       alert( "This page is not reloaded");
-        //     }
-        //   }
-        
-    //     // this.state.reloadPrompt = this.props.reloadPrompt
-
-    //     if(document.getElementById("apartment-detail") && this.state.reloadPrompt){
-    //         this.state.reloadPrompt = true;
-    //         console.log("Details Was here" + this.state.reloadPrompt);
-
-    //         // if (this.state.reloadPrompt == true) {
-
-    //             if (window.performance) {
-    //                 if (performance.navigation.type == 1) {
-                      
-    //                     window.onbeforeunload = function() {
-    //                         return "";
-    //                         }.bind(this);
-        
-    //                         this.state.reloadPrompt = false;
-    //                         console.log("last in detail" + this.state.reloadPrompt);
-        
-        
-    //                 }
-    //             }
-
-    //         // }
-
-
-    //     }
-
-        
-        
-
     }
 
     componentWillUnmount() {
-
-        
-        
-    //     console.log("Does this work" + this.state.reloadPrompt)
-    //     if (this.state.reloadPrompt == false ) {
-            window.onbeforeunload = function () {
-                
-              }
-    //     }
-
-    }
-
-    mineTwo = () => {
-        console.log("Hey");
-        window.alert("Does this work?");
-        window.confirm('Are you sure you wish to delete this item?')
+        // Refresh prompt is overridden when component is unmounted 
+        window.onbeforeunload = function() {
+            return;
+            }
     }
 
     handleButtonAddOccupany(e) {
+        window.onbeforeunload = function() {
+            return;
+            }
         this.setState({ showModal: true });
     }
     handleButtonCloseOccupany(e) {
@@ -142,10 +56,6 @@ export default class ApartmentDetail extends React.Component {
 	
 	getImage = (url) => {
 		return require(url)
-    }
-
-    onCancel () {
-        console.log("Hey");
     }
 	
     render() {
@@ -180,12 +90,9 @@ export default class ApartmentDetail extends React.Component {
         ];
 
         const overlayContent = <AddOccupancy float="right" _id={_aprtDetail["ID"]} apartment={_aprtDetail["Apartment Number"]} />
-
-        // const r = window.confirm("Do you really want to Sign Out?"); if(r == true)
         return (
-            <div id="apartment-detail">
+            <div>
 
-        {/* <button className='delete-button' onClick={ () => window.alert('Are you sure you wish to delete this item?')  } /> */}
                 <span style={{ display: "inline-flex" }}>
 				
                 <div>
