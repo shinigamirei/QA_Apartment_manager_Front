@@ -14,8 +14,8 @@ export default class AddOccupancy extends Component {
         _id: this.props._id,
         apartment_name: this.props.apartment,
         trainee_id: "def",
-        occupancy_start: new Date(),
-        occupancy_end: new Date(),
+        occupancy_start: this.props.startDate,
+        occupancy_end: this.props.endDate,
 		    trainees: []
     }
 	
