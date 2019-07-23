@@ -62,6 +62,9 @@ export default class ApartmentDetail extends React.Component {
         this.setState({ showModal: true });
     }
     handleButtonCloseOccupany(e) {
+        window.onbeforeunload = function() {
+            return "";
+            }
         this.setState({ showModal: false });
     }
 	
